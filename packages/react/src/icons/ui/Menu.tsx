@@ -1,0 +1,25 @@
+// This file is auto-generated. Do not edit manually.
+// Source: svgs/ui/menu.svg
+import { forwardRef } from 'react'
+import type { IconMeta } from '@power-puff/core'
+import { Icon } from '../../components/Icon'
+import type { IconProps } from '../../components/Icon'
+
+export const MenuMeta: IconMeta = {
+  name: 'menu',
+  category: 'ui',
+  tags: [],
+  version: '0.1.0',
+}
+
+export const MenuIcon = forwardRef<SVGSVGElement, IconProps>(function MenuIcon(props, ref) {
+  return (
+    <Icon ref={ref} {...props}>
+      <line x1="3" y1="12" x2="21" y2="12"/>
+  <line x1="3" y1="6" x2="21" y2="6"/>
+  <line x1="3" y1="18" x2="21" y2="18"/>
+    </Icon>
+  )
+})
+
+MenuIcon.displayName = 'MenuIcon'

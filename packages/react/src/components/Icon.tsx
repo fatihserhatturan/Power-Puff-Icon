@@ -2,7 +2,9 @@ import { resolveSize } from '@power-puff/core'
 import type { IconBaseProps } from '@power-puff/core'
 import { forwardRef, type SVGProps } from 'react'
 
-export interface IconProps extends IconBaseProps, Omit<SVGProps<SVGSVGElement>, 'color' | 'style'> {}
+export interface IconProps
+  extends IconBaseProps,
+    Omit<SVGProps<SVGSVGElement>, 'color' | 'style' | 'strokeWidth'> {}
 
 /**
  * Base SVG wrapper used by every generated icon component.

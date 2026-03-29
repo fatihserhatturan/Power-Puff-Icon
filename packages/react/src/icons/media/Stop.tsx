@@ -1,0 +1,23 @@
+// This file is auto-generated. Do not edit manually.
+// Source: svgs/media/stop.svg
+import { forwardRef } from 'react'
+import type { IconMeta } from '@power-puff/core'
+import { Icon } from '../../components/Icon'
+import type { IconProps } from '../../components/Icon'
+
+export const StopMeta: IconMeta = {
+  name: 'stop',
+  category: 'media',
+  tags: [],
+  version: '0.1.0',
+}
+
+export const StopIcon = forwardRef<SVGSVGElement, IconProps>(function StopIcon(props, ref) {
+  return (
+    <Icon ref={ref} {...props}>
+      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+    </Icon>
+  )
+})
+
+StopIcon.displayName = 'StopIcon'
