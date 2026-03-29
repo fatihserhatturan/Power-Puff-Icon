@@ -1,0 +1,42 @@
+{
+  "name": "@power-puff/react",
+  "version": "0.1.0",
+  "description": "React icon components for Power Puff Icon",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "sideEffects": false,
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean --external react",
+    "dev": "tsup src/index.ts --format esm,cjs --dts --watch --external react"
+  },
+  "peerDependencies": {
+    "react": ">=17.0.0"
+  },
+  "dependencies": {
+    "@power-puff/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.0",
+    "react": "^18.3.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.0"
+  },
+  "keywords": [
+    "icon",
+    "icons",
+    "react",
+    "svg",
+    "power-puff"
+  ],
+  "license": "MIT"
+}

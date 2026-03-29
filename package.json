@@ -1,0 +1,27 @@
+{
+  "name": "power-puff-icon",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Monorepo for Power Puff Icon library",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "generate": "tsx scripts/generate-icons.ts",
+    "generate:watch": "tsx watch scripts/generate-icons.ts",
+    "lint": "eslint packages/*/src --ext .ts,.tsx",
+    "typecheck": "tsc --build"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^18.3.0",
+    "eslint": "^9.0.0",
+    "prettier": "^3.3.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
