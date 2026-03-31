@@ -1,17 +1,33 @@
 import { createContext, useContext } from 'react'
 import type { ReactNode } from 'react'
-import type { IconSize } from '@power-puff/core'
+import type { IconSize, IconFlip, IconVariant, AnimationSpeed } from '@power-puff/core'
 
 /**
  * Subset of IconBaseProps that can be set as global defaults.
  * `label`, `className`, and `style` are intentionally excluded:
  * - label: per-icon semantic content — cannot be shared globally
  * - className/style: layout concerns that should cascade via CSS
+ *
+ * Additionally provides `classNamePrefix`/`classNameSuffix` for automatically
+ * injecting CSS classes around every icon's own className in the subtree.
  */
 export interface IconContextValue {
   size?: IconSize
   color?: string
   strokeWidth?: number
+  rotate?: number
+  flip?: IconFlip
+  spin?: boolean
+  pulse?: boolean
+  speed?: AnimationSpeed
+  fill?: string
+  strokeLinecap?: 'butt' | 'round' | 'square'
+  strokeLinejoin?: 'miter' | 'round' | 'bevel'
+  variant?: IconVariant
+  /** CSS class prepended to every icon's className in this subtree */
+  classNamePrefix?: string
+  /** CSS class appended to every icon's className in this subtree */
+  classNameSuffix?: string
 }
 
 export interface IconProviderProps {

@@ -4,6 +4,7 @@ import { ZapIcon, SunIcon, MoonIcon } from '@power-puff/react'
 import { SearchBar } from './components/SearchBar'
 import { PropControls } from './components/PropControls'
 import { IconGrid } from './components/IconGrid'
+import { Playground } from './components/Playground'
 import { useIconSearch } from './hooks/useIconSearch'
 import { icons } from './data/iconRegistry'
 
@@ -15,7 +16,10 @@ function prefersDark() {
     : false
 }
 
+type Tab = 'gallery' | 'playground'
+
 export function App() {
+  const [tab, setTab] = useState<Tab>('gallery')
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState('all')
   const [size, setSize] = useState<IconSize>('lg')
@@ -71,71 +75,95 @@ export function App() {
         </div>
       </header>
 
-      <main className="main">
-        <aside className="sidebar">
-          <div className="sidebar-section">
-            <span className="sidebar-section-title">Preview</span>
-            <PropControls
-              size={size}
-              color={color}
-              strokeWidth={strokeWidth}
-              onSizeChange={setSize}
-              onColorChange={setColor}
-              onStrokeWidthChange={setStrokeWidth}
-            />
-          </div>
+      {/* Tab navigation */}
+      <nav className="nav-tabs">
+        <div className="nav-tabs-inner">
+          <button
+            className={`nav-tab${tab === 'gallery' ? ' active' : ''}`}
+            onClick={() => setTab('gallery')}
+          >
+            Gallery
+          </button>
+          <button
+            className={`nav-tab${tab === 'playground' ? ' active' : ''}`}
+            onClick={() => setTab('playground')}
+          >
+            Playground
+          </button>
+        </div>
+      </nav>
 
-          <div className="sidebar-divider" />
+      {tab === 'gallery' ? (
+        <>
+          <main className="main">
+            <aside className="sidebar">
+              <div className="sidebar-section">
+                <span className="sidebar-section-title">Preview</span>
+                <PropControls
+                  size={size}
+                  color={color}
+                  strokeWidth={strokeWidth}
+                  onSizeChange={setSize}
+                  onColorChange={setColor}
+                  onStrokeWidthChange={setStrokeWidth}
+                />
+              </div>
 
-          <div className="sidebar-section">
-            <span className="sidebar-section-title">Usage</span>
-            <div className="install-box">
-              <p className="install-label">Install</p>
-              <code className="install-code">npm i @power-puff/react</code>
-            </div>
-            <div className="install-box">
-              <p className="install-label">Import</p>
-              <code className="install-code">
-                {'import { SearchIcon }'}
-                <br />
-                {"from '@power-puff/react'"}
-              </code>
-            </div>
-          </div>
+              <div className="sidebar-divider" />
 
-          <div className="sidebar-divider" />
+              <div className="sidebar-section">
+                <span className="sidebar-section-title">Usage</span>
+                <div className="install-box">
+                  <p className="install-label">Install</p>
+                  <code className="install-code">npm i @power-puff/react</code>
+                </div>
+                <div className="install-box">
+                  <p className="install-label">Import</p>
+                  <code className="install-code">
+                    {'import { SearchIcon }'}
+                    <br />
+                    {"from '@power-puff/react'"}
+                  </code>
+                </div>
+              </div>
 
-          <p className="install-hint">
-            Click any icon to copy its import statement.
-          </p>
-        </aside>
+              <div className="sidebar-divider" />
 
-        <section className="content">
-          <SearchBar
-            query={query}
-            category={category}
-            onQueryChange={setQuery}
-            onCategoryChange={setCategory}
-          />
+              <p className="install-hint">
+                Click any icon to copy its import statement.
+              </p>
+            </aside>
 
-          <p className="result-count">
-            {results.length} of {icons.length} icons
-          </p>
+            <section className="content">
+              <SearchBar
+                query={query}
+                category={category}
+                onQueryChange={setQuery}
+                onCategoryChange={setCategory}
+              />
 
-          <IconGrid
-            icons={results}
-            size={size}
-            color={color}
-            strokeWidth={strokeWidth}
-          />
-        </section>
-      </main>
+              <p className="result-count">
+                {results.length} of {icons.length} icons
+              </p>
 
-      <footer className="footer">
-        <p className="footer-text">
-          Power Puff Icon — {icons.length} open source icons for React
-        </p>
-      </footer>
+              <IconGrid
+                icons={results}
+                size={size}
+                color={color}
+                strokeWidth={strokeWidth}
+              />
+            </section>
+          </main>
+
+          <footer className="footer">
+            <p className="footer-text">
+              Power Puff Icon — {icons.length} open source icons for React
+            </p>
+          </footer>
+        </>
+      ) : (
+        <Playground />
+      )}
     </div>
   )
 }

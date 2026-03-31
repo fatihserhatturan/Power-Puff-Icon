@@ -4,6 +4,15 @@
  */
 export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | number
 
+/** Flip direction for mirroring an icon */
+export type IconFlip = 'horizontal' | 'vertical' | 'both'
+
+/** Visual style variant */
+export type IconVariant = 'outline' | 'bold' | 'sharp'
+
+/** Animation speed */
+export type AnimationSpeed = 'slow' | 'normal' | 'fast'
+
 /**
  * Base props shared across all framework adapters.
  * Each framework package (React, Vue, Svelte…) maps these to its own prop types.
@@ -21,6 +30,24 @@ export interface IconBaseProps {
   label?: string
   /** Stroke width in pixels (default: 2) */
   strokeWidth?: number
+  /** Rotate icon by degrees (e.g. 90, 180, 270) */
+  rotate?: number
+  /** Mirror the icon horizontally, vertically, or both */
+  flip?: IconFlip
+  /** Continuous spinning animation */
+  spin?: boolean
+  /** Pulsing scale animation */
+  pulse?: boolean
+  /** Animation speed (default: 'normal') */
+  speed?: AnimationSpeed
+  /** SVG fill color (default: 'none') */
+  fill?: string
+  /** SVG stroke-linecap (default: 'round') */
+  strokeLinecap?: 'butt' | 'round' | 'square'
+  /** SVG stroke-linejoin (default: 'round') */
+  strokeLinejoin?: 'miter' | 'round' | 'bevel'
+  /** Visual style variant affecting stroke weight and style */
+  variant?: IconVariant
 }
 
 /**
