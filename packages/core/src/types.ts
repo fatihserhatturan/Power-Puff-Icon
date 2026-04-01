@@ -13,6 +13,9 @@ export type IconVariant = 'outline' | 'bold' | 'sharp'
 /** Animation speed */
 export type AnimationSpeed = 'slow' | 'normal' | 'fast'
 
+/** All available animation types */
+export type AnimationType = 'spin' | 'pulse' | 'bounce' | 'shake' | 'wiggle' | 'ping' | 'blink' | 'float'
+
 /**
  * Base props shared across all framework adapters.
  * Each framework package (React, Vue, Svelte…) maps these to its own prop types.
@@ -38,8 +41,28 @@ export interface IconBaseProps {
   spin?: boolean
   /** Pulsing scale animation */
   pulse?: boolean
+  /** Vertical bounce animation */
+  bounce?: boolean
+  /** Horizontal shake animation */
+  shake?: boolean
+  /** Rotation wiggle animation (like a notification bell) */
+  wiggle?: boolean
+  /** Scale + opacity radar-ping animation */
+  ping?: boolean
+  /** Opacity blink animation */
+  blink?: boolean
+  /** Gentle Y-axis float animation */
+  float?: boolean
   /** Animation speed (default: 'normal') */
   speed?: AnimationSpeed
+  /** Custom animation duration in milliseconds — overrides speed preset */
+  duration?: number
+  /** Animation start delay in milliseconds */
+  delay?: number
+  /** Number of times to run the animation, or 'infinite' */
+  iterationCount?: number | 'infinite'
+  /** CSS easing function string (e.g. 'ease-in-out', 'cubic-bezier(0.4,0,0.2,1)') */
+  easing?: string
   /** SVG fill color (default: 'none') */
   fill?: string
   /** SVG stroke-linecap (default: 'round') */
@@ -48,6 +71,10 @@ export interface IconBaseProps {
   strokeLinejoin?: 'miter' | 'round' | 'bevel'
   /** Visual style variant affecting stroke weight and style */
   variant?: IconVariant
+  /** Icon opacity (0–1) */
+  opacity?: number
+  /** Adds a CSS drop-shadow filter (SVG-compatible) */
+  shadow?: boolean
 }
 
 /**

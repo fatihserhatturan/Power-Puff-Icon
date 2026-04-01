@@ -1,5 +1,5 @@
 import { useState, useMemo, useRef } from 'react'
-import type { IconSize, IconFlip, IconVariant, AnimationSpeed } from '@power-puff/core'
+import type { IconSize, IconFlip, IconVariant, AnimationSpeed, AnimationType } from '@power-puff/core'
 import { SearchIcon, CheckIcon } from '@power-puff/react'
 import { icons } from '../data/iconRegistry'
 import type { IconEntry } from '../data/iconRegistry'
@@ -22,9 +22,13 @@ interface PropState {
   strokeLinejoin: 'miter' | 'round' | 'bevel'
   rotate: number
   flip?: IconFlip
-  spin: boolean
-  pulse: boolean
+  animation: AnimationType | 'none'
   speed: AnimationSpeed
+  duration: string
+  delay: string
+  iterationCount: string
+  opacity: number
+  shadow: boolean
 }
 
 const DEFAULTS: PropState = {
@@ -37,9 +41,13 @@ const DEFAULTS: PropState = {
   strokeLinejoin: 'round',
   rotate: 0,
   flip: undefined,
-  spin: false,
-  pulse: false,
+  animation: 'none',
   speed: 'normal',
+  duration: '',
+  delay: '',
+  iterationCount: 'infinite',
+  opacity: 1,
+  shadow: false,
 }
 
 function buildSnippet(name: string, s: PropState): string {
@@ -53,9 +61,18 @@ function buildSnippet(name: string, s: PropState): string {
   if (s.strokeLinejoin !== 'round') attrs.push(`strokeLinejoin="${s.strokeLinejoin}"`)
   if (s.rotate !== 0) attrs.push(`rotate={${s.rotate}}`)
   if (s.flip) attrs.push(`flip="${s.flip}"`)
-  if (s.spin) attrs.push('spin')
-  if (s.pulse) attrs.push('pulse')
-  if ((s.spin || s.pulse) && s.speed !== 'normal') attrs.push(`speed="${s.speed}"`)
+
+  if (s.animation !== 'none') {
+    attrs.push(s.animation)
+    const durNum = s.duration ? parseInt(s.duration, 10) : null
+    const delNum = s.delay ? parseInt(s.delay, 10) : null
+    if (durNum == null && s.speed !== 'normal') attrs.push(`speed="${s.speed}"`)
+    if (durNum != null) attrs.push(`duration={${durNum}}`)
+    if (delNum != null && delNum > 0) attrs.push(`delay={${delNum}}`)
+    if (s.iterationCount !== 'infinite') attrs.push(`iterationCount={${s.iterationCount}}`)
+  }
+  if (s.opacity !== 1) attrs.push(`opacity={${s.opacity}}`)
+  if (s.shadow) attrs.push('shadow')
 
   if (attrs.length === 0) return `<${name} />`
   if (attrs.length <= 2) return `<${name} ${attrs.join(' ')} />`
@@ -63,6 +80,7 @@ function buildSnippet(name: string, s: PropState): string {
 }
 
 const SIZES: IconSize[] = ['xs', 'sm', 'md', 'lg', 'xl', '2xl']
+const ANIM_TYPES = ['none', 'spin', 'pulse', 'bounce', 'shake', 'wiggle', 'ping', 'blink', 'float'] as const
 
 // ---------------------------------------------------------------------------
 // Component
@@ -92,6 +110,13 @@ export function Playground() {
   const iconName = `${toPascalCase(selected.meta.name)}Icon`
   const snippet = buildSnippet(iconName, state)
   const IconComponent = selected.component
+
+  const durNum = state.duration ? parseInt(state.duration, 10) : undefined
+  const delNum = state.delay ? parseInt(state.delay, 10) : undefined
+  const iterCount: number | 'infinite' | undefined =
+    state.iterationCount === 'infinite' ? 'infinite'
+    : state.iterationCount ? parseInt(state.iterationCount, 10)
+    : undefined
 
   function handleCopy() {
     navigator.clipboard.writeText(snippet).catch(() => {})
@@ -158,9 +183,20 @@ export function Playground() {
               rotate={state.rotate !== 0 ? state.rotate : undefined}
               flip={state.flip}
               variant={state.variant}
-              spin={state.spin || undefined}
-              pulse={state.pulse || undefined}
+              spin={state.animation === 'spin' || undefined}
+              pulse={state.animation === 'pulse' || undefined}
+              bounce={state.animation === 'bounce' || undefined}
+              shake={state.animation === 'shake' || undefined}
+              wiggle={state.animation === 'wiggle' || undefined}
+              ping={state.animation === 'ping' || undefined}
+              blink={state.animation === 'blink' || undefined}
+              float={state.animation === 'float' || undefined}
               speed={state.speed}
+              duration={durNum}
+              delay={delNum}
+              iterationCount={iterCount}
+              opacity={state.opacity !== 1 ? state.opacity : undefined}
+              shadow={state.shadow || undefined}
             />
           </div>
           <div className="pg-preview-meta">
@@ -317,34 +353,26 @@ export function Playground() {
             </div>
           </div>
 
-          {/* Animation */}
+          {/* Animation type */}
           <div className="pg-group pg-group--full">
             <span className="pg-label">Animation</span>
-            <div className="pg-anim-row">
-              <button
-                className={`pg-toggle${state.spin ? ' active' : ''}`}
-                onClick={() => {
-                  const next = !state.spin
-                  setState(p => ({ ...p, spin: next, pulse: next ? false : p.pulse }))
-                }}
-              >
-                <span className="pg-toggle-track"><span className="pg-toggle-thumb" /></span>
-                Spin
-              </button>
-              <button
-                className={`pg-toggle${state.pulse ? ' active' : ''}`}
-                onClick={() => {
-                  const next = !state.pulse
-                  setState(p => ({ ...p, pulse: next, spin: next ? false : p.spin }))
-                }}
-              >
-                <span className="pg-toggle-track"><span className="pg-toggle-thumb" /></span>
-                Pulse
-              </button>
+            <div className="pg-row" style={{ flexWrap: 'wrap' }}>
+              {ANIM_TYPES.map(v => (
+                <button
+                  key={v}
+                  className={`pg-btn${state.animation === v ? ' active' : ''}`}
+                  onClick={() => set('animation', v as AnimationType | 'none')}
+                >{v}</button>
+              ))}
+            </div>
+          </div>
 
-              {(state.spin || state.pulse) && (
-                <>
-                  <span className="pg-anim-sep" />
+          {state.animation !== 'none' && (
+            <>
+              {/* Speed — only shown when custom duration is not set */}
+              {!state.duration && (
+                <div className="pg-group">
+                  <span className="pg-label">Speed</span>
                   <div className="pg-row">
                     {(['slow', 'normal', 'fast'] as AnimationSpeed[]).map(v => (
                       <button
@@ -354,10 +382,85 @@ export function Playground() {
                       >{v}</button>
                     ))}
                   </div>
-                </>
+                </div>
               )}
+
+              {/* Duration */}
+              <div className="pg-group">
+                <span className="pg-label">
+                  Duration (ms) <em className="pg-value">{state.duration || '—'}</em>
+                </span>
+                <input
+                  type="number"
+                  className="pg-color-text"
+                  min={0}
+                  step={100}
+                  placeholder="e.g. 800"
+                  value={state.duration}
+                  onChange={e => set('duration', e.target.value)}
+                />
+              </div>
+
+              {/* Delay */}
+              <div className="pg-group">
+                <span className="pg-label">
+                  Delay (ms) <em className="pg-value">{state.delay || '0'}</em>
+                </span>
+                <input
+                  type="number"
+                  className="pg-color-text"
+                  min={0}
+                  step={100}
+                  placeholder="e.g. 200"
+                  value={state.delay}
+                  onChange={e => set('delay', e.target.value)}
+                />
+              </div>
+
+              {/* Iterations */}
+              <div className="pg-group">
+                <span className="pg-label">Iterations</span>
+                <div className="pg-row">
+                  {(['infinite', '1', '2', '3'] as const).map(v => (
+                    <button
+                      key={v}
+                      className={`pg-btn${state.iterationCount === v ? ' active' : ''}`}
+                      onClick={() => set('iterationCount', v)}
+                    >{v}</button>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
+
+          {/* Opacity */}
+          <div className="pg-group">
+            <span className="pg-label">
+              Opacity <em className="pg-value">{state.opacity}</em>
+            </span>
+            <input
+              type="range"
+              className="stroke-slider"
+              min={0} max={1} step={0.05}
+              value={state.opacity}
+              onChange={e => set('opacity', parseFloat(e.target.value))}
+            />
+          </div>
+
+          {/* Shadow */}
+          <div className="pg-group">
+            <span className="pg-label">Shadow</span>
+            <div className="pg-row">
+              <button
+                className={`pg-toggle${state.shadow ? ' active' : ''}`}
+                onClick={() => set('shadow', !state.shadow)}
+              >
+                <span className="pg-toggle-track"><span className="pg-toggle-thumb" /></span>
+                Drop shadow
+              </button>
             </div>
           </div>
+
         </div>
 
         {/* Code snippet */}

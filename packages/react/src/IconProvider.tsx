@@ -19,11 +19,23 @@ export interface IconContextValue {
   flip?: IconFlip
   spin?: boolean
   pulse?: boolean
+  bounce?: boolean
+  shake?: boolean
+  wiggle?: boolean
+  ping?: boolean
+  blink?: boolean
+  float?: boolean
   speed?: AnimationSpeed
+  duration?: number
+  delay?: number
+  iterationCount?: number | 'infinite'
+  easing?: string
   fill?: string
   strokeLinecap?: 'butt' | 'round' | 'square'
   strokeLinejoin?: 'miter' | 'round' | 'bevel'
   variant?: IconVariant
+  opacity?: number
+  shadow?: boolean
   /** CSS class prepended to every icon's className in this subtree */
   classNamePrefix?: string
   /** CSS class appended to every icon's className in this subtree */
