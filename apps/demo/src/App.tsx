@@ -56,10 +56,7 @@ export function App() {
               <img src="/beluga-icon.svg" alt="Power Puff Icon logo" className="header-logo-img" />
             </div>
             <div>
-              <h1 className="header-title">Power Puff Icon</h1>
-              <p className="header-subtitle">
-                {icons.length} icons · {CATEGORIES_COUNT} categories · React
-              </p>
+              <h1 className="header-title">Beluga Icon</h1>
             </div>
           </div>
 
