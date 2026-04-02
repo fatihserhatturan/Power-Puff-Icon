@@ -520,19 +520,45 @@ html.dark .icon-card-preview { color: #ffffff; }
 
 /* ── Panel (right column) ─────────────────────────────── */
 .pg-panel {
-  padding: 28px;
-  padding-bottom: 120px;
-  display: flex; flex-direction: column; gap: 24px;
-  overflow: hidden;
+  display: grid;
+  grid-template-columns: 7fr 3fr;
+  gap: 0;
+  align-items: start;
 }
+
+/* Orta: kontroller */
+.pg-panel-controls {
+  position: sticky;
+  top: 101px;
+  height: calc(100vh - 101px);
+  padding: 28px 24px 28px 28px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  border-right: 1px solid var(--border);
+}
+.pg-panel-controls::-webkit-scrollbar { display: none; }
+
+/* Sağ sticky: preview + kod */
+.pg-panel-preview {
+  position: sticky;
+  top: 101px;
+  height: calc(100vh - 101px);
+  padding: 28px 28px 28px 24px;
+  display: flex; flex-direction: column; gap: 0;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.pg-panel-preview::-webkit-scrollbar { display: none; }
 
 /* Preview */
 .pg-preview {
   display: flex; flex-direction: column; align-items: center;
   justify-content: center; gap: 16px;
-  padding: 48px 24px 32px;
-  border: 1px solid var(--border); border-radius: var(--radius);
-  background: var(--surface); min-height: 180px;
+  padding: 32px 16px 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius) var(--radius) 0 0;
+  border-bottom: none;
+  background: var(--surface); min-height: 160px;
 }
 .pg-preview-icon { display: flex; align-items: center; justify-content: center; }
 .pg-preview-meta { display: flex; flex-direction: column; align-items: center; gap: 3px; }
@@ -650,18 +676,10 @@ html.dark .icon-card-preview { color: #ffffff; }
 
 /* Code snippet — sticky */
 .pg-code-wrap {
-  position: sticky;
-  bottom: 0;
-  z-index: 5;
   overflow: hidden;
-  border: none;
-  border-top: 1px solid var(--border);
-  border-radius: 0;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  background: color-mix(in srgb, var(--bg) 92%, transparent);
-  margin: 0 -28px;
-  padding: 0 28px;
+  border: 1px solid var(--border);
+  border-radius: 0 0 var(--radius) var(--radius);
+  background: var(--surface);
 }
 .pg-code-header {
   display: flex; align-items: center; justify-content: space-between;
@@ -725,5 +743,17 @@ html.dark .icon-card-preview { color: #ffffff; }
   }
   .pg-controls { grid-template-columns: 1fr; }
   .pg-group--full { grid-column: 1; }
-  .pg-panel { padding: 20px; }
+  .pg-panel { grid-template-columns: 1fr; }
+  .pg-panel-controls {
+    position: static;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 20px;
+  }
+  .pg-panel-preview {
+    position: static;
+    height: auto;
+    padding: 20px;
+  }
 }
