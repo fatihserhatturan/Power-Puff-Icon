@@ -25,6 +25,22 @@ export interface IconContextValue {
   ping?: boolean
   blink?: boolean
   float?: boolean
+  /** Double-peak heartbeat scale pulse animation */
+  heartbeat?: boolean
+  /** Fast opacity flash with ease curves (distinct from step-based blink) */
+  flash?: boolean
+  /** Celebratory scale + oscillating rotation */
+  tada?: boolean
+  /** Skew-based jiggly wobble */
+  jello?: boolean
+  /** Pendulum rotation from top-center origin */
+  swing?: boolean
+  /** Elastic stretch and squash */
+  rubberBand?: boolean
+  /** 3D horizontal flip via rotateY */
+  flipX?: boolean
+  /** Slow ambient opacity breathing */
+  breathe?: boolean
   speed?: AnimationSpeed
   duration?: number
   delay?: number

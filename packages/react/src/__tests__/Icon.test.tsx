@@ -226,3 +226,77 @@ describe('Icon — style enhancement props', () => {
     expect(filter).toContain('drop-shadow')
   })
 })
+
+describe('Icon — new animations (wave 2)', () => {
+  it('applies ppi-heartbeat class when heartbeat=true', () => {
+    const { container } = render(<Icon heartbeat><circle /></Icon>)
+    expect(container.querySelector('svg')).toHaveClass('ppi-heartbeat')
+  })
+
+  it('applies ppi-flash class when flash=true', () => {
+    const { container } = render(<Icon flash><circle /></Icon>)
+    expect(container.querySelector('svg')).toHaveClass('ppi-flash')
+  })
+
+  it('applies ppi-tada class when tada=true', () => {
+    const { container } = render(<Icon tada><circle /></Icon>)
+    expect(container.querySelector('svg')).toHaveClass('ppi-tada')
+  })
+
+  it('applies ppi-jello class when jello=true', () => {
+    const { container } = render(<Icon jello><circle /></Icon>)
+    expect(container.querySelector('svg')).toHaveClass('ppi-jello')
+  })
+
+  it('applies ppi-swing class when swing=true', () => {
+    const { container } = render(<Icon swing><circle /></Icon>)
+    expect(container.querySelector('svg')).toHaveClass('ppi-swing')
+  })
+
+  it('applies ppi-rubber-band class when rubberBand=true', () => {
+    const { container } = render(<Icon rubberBand><circle /></Icon>)
+    expect(container.querySelector('svg')).toHaveClass('ppi-rubber-band')
+  })
+
+  it('applies ppi-flip-x class when flipX=true', () => {
+    const { container } = render(<Icon flipX><circle /></Icon>)
+    expect(container.querySelector('svg')).toHaveClass('ppi-flip-x')
+  })
+
+  it('applies ppi-breathe class when breathe=true', () => {
+    const { container } = render(<Icon breathe><circle /></Icon>)
+    expect(container.querySelector('svg')).toHaveClass('ppi-breathe')
+  })
+
+  it('spin takes priority over heartbeat when both are true', () => {
+    const { container } = render(<Icon spin heartbeat><circle /></Icon>)
+    const svg = container.querySelector('svg')!
+    expect(svg).toHaveClass('ppi-spin')
+    expect(svg).not.toHaveClass('ppi-heartbeat')
+  })
+
+  it('heartbeat takes priority over breathe when both are true', () => {
+    const { container } = render(<Icon heartbeat breathe><circle /></Icon>)
+    const svg = container.querySelector('svg')!
+    expect(svg).toHaveClass('ppi-heartbeat')
+    expect(svg).not.toHaveClass('ppi-breathe')
+  })
+
+  it('sets --ppi-dur correctly for rubberBand normal speed', () => {
+    const { container } = render(<Icon rubberBand speed="normal"><circle /></Icon>)
+    const svg = container.querySelector('svg')!
+    expect((svg as HTMLElement).style.getPropertyValue('--ppi-dur')).toBe('0.9s')
+  })
+
+  it('sets --ppi-dur correctly for breathe slow speed', () => {
+    const { container } = render(<Icon breathe speed="slow"><circle /></Icon>)
+    const svg = container.querySelector('svg')!
+    expect((svg as HTMLElement).style.getPropertyValue('--ppi-dur')).toBe('6s')
+  })
+
+  it('sets --ppi-dur correctly for flipX fast speed', () => {
+    const { container } = render(<Icon flipX speed="fast"><circle /></Icon>)
+    const svg = container.querySelector('svg')!
+    expect((svg as HTMLElement).style.getPropertyValue('--ppi-dur')).toBe('0.5s')
+  })
+})

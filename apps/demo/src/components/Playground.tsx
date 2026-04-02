@@ -80,7 +80,10 @@ function buildSnippet(name: string, s: PropState): string {
 }
 
 const SIZES: IconSize[] = ['xs', 'sm', 'md', 'lg', 'xl', '2xl']
-const ANIM_TYPES = ['none', 'spin', 'pulse', 'bounce', 'shake', 'wiggle', 'ping', 'blink', 'float'] as const
+const ANIM_TYPES = [
+  'none', 'spin', 'pulse', 'bounce', 'shake', 'wiggle', 'ping', 'blink', 'float',
+  'heartbeat', 'flash', 'tada', 'jello', 'swing', 'rubberBand', 'flipX', 'breathe',
+] as const
 
 // ---------------------------------------------------------------------------
 // Component
@@ -479,6 +482,14 @@ export function Playground() {
                 ping={state.animation === 'ping' || undefined}
                 blink={state.animation === 'blink' || undefined}
                 float={state.animation === 'float' || undefined}
+                heartbeat={state.animation === 'heartbeat' || undefined}
+                flash={state.animation === 'flash' || undefined}
+                tada={state.animation === 'tada' || undefined}
+                jello={state.animation === 'jello' || undefined}
+                swing={state.animation === 'swing' || undefined}
+                rubberBand={state.animation === 'rubberBand' || undefined}
+                flipX={state.animation === 'flipX' || undefined}
+                breathe={state.animation === 'breathe' || undefined}
                 speed={state.speed}
                 duration={durNum}
                 delay={delNum}

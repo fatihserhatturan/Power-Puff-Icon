@@ -14,7 +14,9 @@ export type IconVariant = 'outline' | 'bold' | 'sharp'
 export type AnimationSpeed = 'slow' | 'normal' | 'fast'
 
 /** All available animation types */
-export type AnimationType = 'spin' | 'pulse' | 'bounce' | 'shake' | 'wiggle' | 'ping' | 'blink' | 'float'
+export type AnimationType =
+  'spin' | 'pulse' | 'bounce' | 'shake' | 'wiggle' | 'ping' | 'blink' | 'float'
+  | 'heartbeat' | 'flash' | 'tada' | 'jello' | 'swing' | 'rubberBand' | 'flipX' | 'breathe'
 
 /**
  * Base props shared across all framework adapters.
@@ -53,6 +55,22 @@ export interface IconBaseProps {
   blink?: boolean
   /** Gentle Y-axis float animation */
   float?: boolean
+  /** Double-peak heartbeat scale pulse animation */
+  heartbeat?: boolean
+  /** Fast opacity flash with ease curves (distinct from step-based blink) */
+  flash?: boolean
+  /** Celebratory scale + oscillating rotation */
+  tada?: boolean
+  /** Skew-based jiggly wobble */
+  jello?: boolean
+  /** Pendulum rotation from top-center origin */
+  swing?: boolean
+  /** Elastic stretch and squash */
+  rubberBand?: boolean
+  /** 3D horizontal flip via rotateY */
+  flipX?: boolean
+  /** Slow ambient opacity breathing */
+  breathe?: boolean
   /** Animation speed (default: 'normal') */
   speed?: AnimationSpeed
   /** Custom animation duration in milliseconds — overrides speed preset */

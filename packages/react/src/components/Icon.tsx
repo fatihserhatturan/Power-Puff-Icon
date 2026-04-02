@@ -69,9 +69,76 @@ function ensureAnimStyles() {
     .ppi-ping   { animation: ppi-ping   var(--ppi-dur, 1s)   ease-out    var(--ppi-delay, 0s) var(--ppi-count, infinite); }
     .ppi-blink  { animation: ppi-blink  var(--ppi-dur, 1s)   step-start  var(--ppi-delay, 0s) var(--ppi-count, infinite); }
     .ppi-float  { animation: ppi-float  var(--ppi-dur, 3s)   ease-in-out var(--ppi-delay, 0s) var(--ppi-count, infinite); }
+    @keyframes ppi-heartbeat {
+      0%       { transform: var(--ppi-bt,) scale(1); }
+      14%      { transform: var(--ppi-bt,) scale(1.15); }
+      28%      { transform: var(--ppi-bt,) scale(1); }
+      42%      { transform: var(--ppi-bt,) scale(1.3); }
+      70%,100% { transform: var(--ppi-bt,) scale(1); }
+    }
+    @keyframes ppi-flash {
+      0%,100% { opacity: 1; }
+      25%,75% { opacity: 0; }
+      50%     { opacity: 1; }
+    }
+    @keyframes ppi-tada {
+      0%              { transform: var(--ppi-bt,) scale(1) rotate(0deg); }
+      10%,20%         { transform: var(--ppi-bt,) scale(0.9) rotate(-3deg); }
+      30%,50%,70%,90% { transform: var(--ppi-bt,) scale(1.1) rotate(3deg); }
+      40%,60%,80%     { transform: var(--ppi-bt,) scale(1.1) rotate(-3deg); }
+      100%            { transform: var(--ppi-bt,) scale(1) rotate(0deg); }
+    }
+    @keyframes ppi-jello {
+      0%,100% { transform: var(--ppi-bt,) skewX(0deg) skewY(0deg); }
+      11.1%   { transform: var(--ppi-bt,) skewX(-12.5deg) skewY(-12.5deg); }
+      22.2%   { transform: var(--ppi-bt,) skewX(6.25deg) skewY(6.25deg); }
+      33.3%   { transform: var(--ppi-bt,) skewX(-3.125deg) skewY(-3.125deg); }
+      44.4%   { transform: var(--ppi-bt,) skewX(1.5625deg) skewY(1.5625deg); }
+      55.5%   { transform: var(--ppi-bt,) skewX(-0.78125deg) skewY(-0.78125deg); }
+      66.6%   { transform: var(--ppi-bt,) skewX(0.390625deg) skewY(0.390625deg); }
+      77.7%   { transform: var(--ppi-bt,) skewX(-0.1953125deg) skewY(-0.1953125deg); }
+    }
+    @keyframes ppi-swing {
+      0%   { transform: var(--ppi-bt,) rotate(0deg); }
+      20%  { transform: var(--ppi-bt,) rotate(15deg); }
+      40%  { transform: var(--ppi-bt,) rotate(-10deg); }
+      60%  { transform: var(--ppi-bt,) rotate(5deg); }
+      80%  { transform: var(--ppi-bt,) rotate(-5deg); }
+      100% { transform: var(--ppi-bt,) rotate(0deg); }
+    }
+    @keyframes ppi-rubber-band {
+      0%   { transform: var(--ppi-bt,) scaleX(1) scaleY(1); }
+      30%  { transform: var(--ppi-bt,) scaleX(1.25) scaleY(0.75); }
+      40%  { transform: var(--ppi-bt,) scaleX(0.75) scaleY(1.25); }
+      50%  { transform: var(--ppi-bt,) scaleX(1.15) scaleY(0.85); }
+      65%  { transform: var(--ppi-bt,) scaleX(0.95) scaleY(1.05); }
+      75%  { transform: var(--ppi-bt,) scaleX(1.05) scaleY(0.95); }
+      100% { transform: var(--ppi-bt,) scaleX(1) scaleY(1); }
+    }
+    @keyframes ppi-flip-x {
+      0%   { transform: var(--ppi-bt,) perspective(400px) rotateY(0deg); }
+      40%  { transform: var(--ppi-bt,) perspective(400px) rotateY(-20deg); animation-timing-function: ease-in; }
+      60%  { transform: var(--ppi-bt,) perspective(400px) rotateY(10deg); }
+      80%  { transform: var(--ppi-bt,) perspective(400px) rotateY(-5deg); }
+      100% { transform: var(--ppi-bt,) perspective(400px) rotateY(0deg); }
+    }
+    @keyframes ppi-breathe {
+      0%,100% { opacity: 1; }
+      50%     { opacity: 0.4; }
+    }
+    .ppi-heartbeat   { animation: ppi-heartbeat   var(--ppi-dur, 1.2s) ease-in-out var(--ppi-delay, 0s) var(--ppi-count, infinite); }
+    .ppi-flash       { animation: ppi-flash        var(--ppi-dur, 0.8s) ease-in-out var(--ppi-delay, 0s) var(--ppi-count, infinite); }
+    .ppi-tada        { animation: ppi-tada         var(--ppi-dur, 0.8s) ease-in-out var(--ppi-delay, 0s) var(--ppi-count, infinite); }
+    .ppi-jello       { animation: ppi-jello        var(--ppi-dur, 0.9s) ease-in-out var(--ppi-delay, 0s) var(--ppi-count, infinite); }
+    .ppi-swing       { animation: ppi-swing        var(--ppi-dur, 1s)   ease-in-out var(--ppi-delay, 0s) var(--ppi-count, infinite); transform-origin: top center; }
+    .ppi-rubber-band { animation: ppi-rubber-band  var(--ppi-dur, 0.9s) ease-in-out var(--ppi-delay, 0s) var(--ppi-count, infinite); }
+    .ppi-flip-x      { animation: ppi-flip-x       var(--ppi-dur, 1s)   ease-in-out var(--ppi-delay, 0s) var(--ppi-count, infinite); }
+    .ppi-breathe     { animation: ppi-breathe      var(--ppi-dur, 4s)   ease-in-out var(--ppi-delay, 0s) var(--ppi-count, infinite); }
     @media (prefers-reduced-motion: reduce) {
       .ppi-spin, .ppi-pulse, .ppi-bounce, .ppi-shake,
-      .ppi-wiggle, .ppi-ping, .ppi-blink, .ppi-float {
+      .ppi-wiggle, .ppi-ping, .ppi-blink, .ppi-float,
+      .ppi-heartbeat, .ppi-flash, .ppi-tada, .ppi-jello,
+      .ppi-swing, .ppi-rubber-band, .ppi-flip-x, .ppi-breathe {
         animation: none;
       }
     }
@@ -87,8 +154,16 @@ const SPEED_DURATION: Record<string, Record<string, string>> = {
   shake:  { slow: '0.9s', normal: '0.5s',  fast: '0.25s' },
   wiggle: { slow: '1s',   normal: '0.6s',  fast: '0.3s' },
   ping:   { slow: '1.8s', normal: '1s',    fast: '0.5s' },
-  blink:  { slow: '2s',   normal: '1s',    fast: '0.5s' },
-  float:  { slow: '4s',   normal: '3s',    fast: '1.5s' },
+  blink:      { slow: '2s',   normal: '1s',    fast: '0.5s'  },
+  float:      { slow: '4s',   normal: '3s',    fast: '1.5s'  },
+  heartbeat:  { slow: '2s',   normal: '1.2s',  fast: '0.6s'  },
+  flash:      { slow: '1.4s', normal: '0.8s',  fast: '0.4s'  },
+  tada:       { slow: '1.4s', normal: '0.8s',  fast: '0.4s'  },
+  jello:      { slow: '1.6s', normal: '0.9s',  fast: '0.45s' },
+  swing:      { slow: '1.8s', normal: '1s',    fast: '0.5s'  },
+  rubberBand: { slow: '1.6s', normal: '0.9s',  fast: '0.45s' },
+  flipX:      { slow: '1.8s', normal: '1s',    fast: '0.5s'  },
+  breathe:    { slow: '6s',   normal: '4s',    fast: '2s'    },
 }
 
 function resolveAnimDuration(animType: string, speed: string, duration?: number): string {
@@ -110,7 +185,18 @@ function buildBaseTransform(rotate?: number, flip?: IconFlip): string {
 // ---------------------------------------------------------------------------
 
 type AnimKey = 'spin' | 'pulse' | 'bounce' | 'shake' | 'wiggle' | 'ping' | 'blink' | 'float'
-const ANIM_PRIORITY: AnimKey[] = ['spin', 'pulse', 'bounce', 'shake', 'wiggle', 'ping', 'blink', 'float']
+             | 'heartbeat' | 'flash' | 'tada' | 'jello' | 'swing' | 'rubberBand' | 'flipX' | 'breathe'
+const ANIM_PRIORITY: AnimKey[] = [
+  'spin', 'pulse', 'bounce', 'shake', 'wiggle', 'ping', 'blink', 'float',
+  'heartbeat', 'flash', 'tada', 'jello', 'swing', 'rubberBand', 'flipX', 'breathe',
+]
+const ANIM_CLASS: Partial<Record<AnimKey, string>> = {
+  rubberBand: 'ppi-rubber-band',
+  flipX:      'ppi-flip-x',
+}
+function animClass(key: AnimKey): string {
+  return ANIM_CLASS[key] ?? `ppi-${key}`
+}
 
 /**
  * Base SVG wrapper used by every generated icon component.
@@ -122,6 +208,7 @@ export const Icon = forwardRef<SVGSVGElement, IconProps & { children: React.Reac
     {
       size, color, className, label, strokeWidth, style, children,
       rotate, flip, spin, pulse, bounce, shake, wiggle, ping, blink, float,
+      heartbeat, flash, tada, jello, swing, rubberBand, flipX, breathe,
       speed, duration, delay, iterationCount, easing,
       fill, strokeLinecap, strokeLinejoin, variant,
       opacity, shadow,
@@ -174,6 +261,15 @@ export const Icon = forwardRef<SVGSVGElement, IconProps & { children: React.Reac
     const resolvedBlink  = blink  ?? ctx.blink  ?? false
     const resolvedFloat  = float  ?? ctx.float  ?? false
 
+    const resolvedHeartbeat  = heartbeat  ?? ctx.heartbeat  ?? false
+    const resolvedFlash      = flash      ?? ctx.flash      ?? false
+    const resolvedTada       = tada       ?? ctx.tada       ?? false
+    const resolvedJello      = jello      ?? ctx.jello      ?? false
+    const resolvedSwing      = swing      ?? ctx.swing      ?? false
+    const resolvedRubberBand = rubberBand ?? ctx.rubberBand ?? false
+    const resolvedFlipX      = flipX      ?? ctx.flipX      ?? false
+    const resolvedBreathe    = breathe    ?? ctx.breathe    ?? false
+
     // Fine-tuning
     const resolvedDuration      = duration      ?? ctx.duration
     const resolvedDelay         = delay         ?? ctx.delay
@@ -188,6 +284,9 @@ export const Icon = forwardRef<SVGSVGElement, IconProps & { children: React.Reac
       spin: resolvedSpin, pulse: resolvedPulse, bounce: resolvedBounce,
       shake: resolvedShake, wiggle: resolvedWiggle, ping: resolvedPing,
       blink: resolvedBlink, float: resolvedFloat,
+      heartbeat: resolvedHeartbeat, flash: resolvedFlash, tada: resolvedTada,
+      jello: resolvedJello, swing: resolvedSwing, rubberBand: resolvedRubberBand,
+      flipX: resolvedFlipX, breathe: resolvedBreathe,
     }
     const activeAnim = ANIM_PRIORITY.find(k => animFlags[k]) ?? null
     const isAnimating = activeAnim !== null
@@ -245,7 +344,7 @@ export const Icon = forwardRef<SVGSVGElement, IconProps & { children: React.Reac
 
     // --- className composition ---
     const animClasses: string[] = []
-    if (activeAnim) animClasses.push(`ppi-${activeAnim}`)
+    if (activeAnim) animClasses.push(animClass(activeAnim))
 
     const classParts = [classNamePrefix, className, ...animClasses, classNameSuffix].filter(Boolean)
     const finalClassName = classParts.length > 0 ? classParts.join(' ') : undefined
