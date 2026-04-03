@@ -457,3 +457,136 @@ describe('Icon — trigger control', () => {
     vi.unstubAllGlobals()
   })
 })
+
+describe('Icon — advanced animations (wave 3)', () => {
+  // --- Class application tests ---
+  it('erase prop adds ppi-erase class', () => {
+    const { container } = render(<Icon erase><circle /></Icon>)
+    expect(container.querySelector('svg')!.classList.contains('ppi-erase')).toBe(true)
+  })
+
+  it('trace prop adds ppi-trace class', () => {
+    const { container } = render(<Icon trace><circle /></Icon>)
+    expect(container.querySelector('svg')!.classList.contains('ppi-trace')).toBe(true)
+  })
+
+  it('neon prop adds ppi-neon class', () => {
+    const { container } = render(<Icon neon><circle /></Icon>)
+    expect(container.querySelector('svg')!.classList.contains('ppi-neon')).toBe(true)
+  })
+
+  it('glitch prop adds ppi-glitch class', () => {
+    const { container } = render(<Icon glitch><circle /></Icon>)
+    expect(container.querySelector('svg')!.classList.contains('ppi-glitch')).toBe(true)
+  })
+
+  it('wobble prop adds ppi-wobble class', () => {
+    const { container } = render(<Icon wobble><circle /></Icon>)
+    expect(container.querySelector('svg')!.classList.contains('ppi-wobble')).toBe(true)
+  })
+
+  it('roll prop adds ppi-roll class', () => {
+    const { container } = render(<Icon roll><circle /></Icon>)
+    expect(container.querySelector('svg')!.classList.contains('ppi-roll')).toBe(true)
+  })
+
+  it('zoomIn prop adds ppi-zoom-in class', () => {
+    const { container } = render(<Icon zoomIn><circle /></Icon>)
+    expect(container.querySelector('svg')!.classList.contains('ppi-zoom-in')).toBe(true)
+  })
+
+  it('fadeUp prop adds ppi-fade-up class', () => {
+    const { container } = render(<Icon fadeUp><circle /></Icon>)
+    expect(container.querySelector('svg')!.classList.contains('ppi-fade-up')).toBe(true)
+  })
+
+  // --- Priority tests ---
+  it('spin wins over roll (higher priority)', () => {
+    const { container } = render(<Icon spin roll><circle /></Icon>)
+    const svg = container.querySelector('svg')!
+    expect(svg.classList.contains('ppi-spin')).toBe(true)
+    expect(svg.classList.contains('ppi-roll')).toBe(false)
+  })
+
+  it('wobble wins over zoomIn (higher priority)', () => {
+    const { container } = render(<Icon wobble zoomIn><circle /></Icon>)
+    const svg = container.querySelector('svg')!
+    expect(svg.classList.contains('ppi-wobble')).toBe(true)
+    expect(svg.classList.contains('ppi-zoom-in')).toBe(false)
+  })
+
+  // --- Speed preset tests ---
+  it('erase normal speed sets --ppi-dur to 1s', () => {
+    const { container } = render(<Icon erase speed="normal"><circle /></Icon>)
+    const svg = container.querySelector('svg')!
+    expect(svg.style.getPropertyValue('--ppi-dur')).toBe('1s')
+  })
+
+  it('trace slow speed sets --ppi-dur to 4s', () => {
+    const { container } = render(<Icon trace speed="slow"><circle /></Icon>)
+    const svg = container.querySelector('svg')!
+    expect(svg.style.getPropertyValue('--ppi-dur')).toBe('4s')
+  })
+
+  it('glitch fast speed sets --ppi-dur to 0.2s', () => {
+    const { container } = render(<Icon glitch speed="fast"><circle /></Icon>)
+    const svg = container.querySelector('svg')!
+    expect(svg.style.getPropertyValue('--ppi-dur')).toBe('0.2s')
+  })
+
+  it('neon normal speed sets --ppi-dur to 2s', () => {
+    const { container } = render(<Icon neon speed="normal"><circle /></Icon>)
+    const svg = container.querySelector('svg')!
+    expect(svg.style.getPropertyValue('--ppi-dur')).toBe('2s')
+  })
+
+  // --- Default iterationCount tests (once-by-default) ---
+  it('erase defaults to iterationCount 1', () => {
+    const { container } = render(<Icon erase><circle /></Icon>)
+    const svg = container.querySelector('svg')!
+    expect(svg.style.getPropertyValue('--ppi-count')).toBe('1')
+  })
+
+  it('roll defaults to iterationCount 1', () => {
+    const { container } = render(<Icon roll><circle /></Icon>)
+    const svg = container.querySelector('svg')!
+    expect(svg.style.getPropertyValue('--ppi-count')).toBe('1')
+  })
+
+  it('zoomIn defaults to iterationCount 1', () => {
+    const { container } = render(<Icon zoomIn><circle /></Icon>)
+    const svg = container.querySelector('svg')!
+    expect(svg.style.getPropertyValue('--ppi-count')).toBe('1')
+  })
+
+  it('fadeUp defaults to iterationCount 1', () => {
+    const { container } = render(<Icon fadeUp><circle /></Icon>)
+    const svg = container.querySelector('svg')!
+    expect(svg.style.getPropertyValue('--ppi-count')).toBe('1')
+  })
+
+  // --- Default iterationCount tests (infinite-by-default) ---
+  it('trace defaults to iterationCount infinite', () => {
+    const { container } = render(<Icon trace><circle /></Icon>)
+    const svg = container.querySelector('svg')!
+    expect(svg.style.getPropertyValue('--ppi-count')).toBe('infinite')
+  })
+
+  it('neon defaults to iterationCount infinite', () => {
+    const { container } = render(<Icon neon><circle /></Icon>)
+    const svg = container.querySelector('svg')!
+    expect(svg.style.getPropertyValue('--ppi-count')).toBe('infinite')
+  })
+
+  it('glitch defaults to iterationCount infinite', () => {
+    const { container } = render(<Icon glitch><circle /></Icon>)
+    const svg = container.querySelector('svg')!
+    expect(svg.style.getPropertyValue('--ppi-count')).toBe('infinite')
+  })
+
+  it('wobble defaults to iterationCount infinite', () => {
+    const { container } = render(<Icon wobble><circle /></Icon>)
+    const svg = container.querySelector('svg')!
+    expect(svg.style.getPropertyValue('--ppi-count')).toBe('infinite')
+  })
+})

@@ -134,11 +134,59 @@ function ensureAnimStyles() {
     .ppi-rubber-band { animation: ppi-rubber-band  var(--ppi-dur, 0.9s) ease-in-out var(--ppi-delay, 0s) var(--ppi-count, infinite); }
     .ppi-flip-x      { animation: ppi-flip-x       var(--ppi-dur, 1s)   ease-in-out var(--ppi-delay, 0s) var(--ppi-count, infinite); }
     .ppi-breathe     { animation: ppi-breathe      var(--ppi-dur, 4s)   ease-in-out var(--ppi-delay, 0s) var(--ppi-count, infinite); }
+    @keyframes ppi-neon {
+      0%, 100% {
+        filter: drop-shadow(0 0 3px currentColor) drop-shadow(0 0 6px currentColor);
+        opacity: 0.9;
+      }
+      50% {
+        filter: drop-shadow(0 0 6px currentColor) drop-shadow(0 0 12px currentColor) drop-shadow(0 0 20px currentColor);
+        opacity: 1;
+      }
+    }
+    @keyframes ppi-glitch {
+      0%,100% { transform: var(--ppi-bt,) translateX(0); filter: none; }
+      2%      { transform: var(--ppi-bt,) translateX(-3px); filter: hue-rotate(90deg); }
+      4%      { transform: var(--ppi-bt,) translateX(3px) skewX(2deg); filter: hue-rotate(180deg) saturate(2); }
+      6%      { transform: var(--ppi-bt,) translateX(-2px); filter: hue-rotate(270deg); }
+      8%      { transform: var(--ppi-bt,) translateX(0); filter: none; }
+      52%     { transform: var(--ppi-bt,) translateX(0); filter: none; }
+      54%     { transform: var(--ppi-bt,) translateX(2px) skewX(-1deg); filter: hue-rotate(90deg) saturate(1.5); }
+      56%     { transform: var(--ppi-bt,) translateX(-3px); filter: hue-rotate(180deg); }
+      58%     { transform: var(--ppi-bt,) translateX(0); filter: none; }
+    }
+    @keyframes ppi-wobble {
+      0%   { transform: var(--ppi-bt,) translateX(0) rotateZ(0deg); }
+      15%  { transform: var(--ppi-bt,) translateX(-6px) rotateZ(-5deg); }
+      30%  { transform: var(--ppi-bt,) translateX(5px) rotateZ(3deg); }
+      45%  { transform: var(--ppi-bt,) translateX(-3px) rotateZ(-2deg); }
+      60%  { transform: var(--ppi-bt,) translateX(2px) rotateZ(1deg); }
+      100% { transform: var(--ppi-bt,) translateX(0) rotateZ(0deg); }
+    }
+    @keyframes ppi-roll {
+      0%   { transform: var(--ppi-bt,) translateX(-100%) rotateZ(-360deg); opacity: 0; }
+      100% { transform: var(--ppi-bt,) translateX(0) rotateZ(0deg); opacity: 1; }
+    }
+    @keyframes ppi-zoom-in {
+      0%   { transform: var(--ppi-bt,) scale(0.3); opacity: 0; }
+      100% { transform: var(--ppi-bt,) scale(1); opacity: 1; }
+    }
+    @keyframes ppi-fade-up {
+      0%   { transform: var(--ppi-bt,) translateY(-16px); opacity: 0; }
+      100% { transform: var(--ppi-bt,) translateY(0); opacity: 1; }
+    }
+    .ppi-neon    { animation: ppi-neon    var(--ppi-dur, 2s)   ease-in-out var(--ppi-delay, 0s) var(--ppi-count, infinite); }
+    .ppi-glitch  { animation: ppi-glitch  var(--ppi-dur, 0.4s) linear      var(--ppi-delay, 0s) var(--ppi-count, infinite); }
+    .ppi-wobble  { animation: ppi-wobble  var(--ppi-dur, 1s)   ease-in-out var(--ppi-delay, 0s) var(--ppi-count, infinite); }
+    .ppi-roll    { animation: ppi-roll    var(--ppi-dur, 0.8s) ease-out    var(--ppi-delay, 0s) var(--ppi-count, 1) both; }
+    .ppi-zoom-in { animation: ppi-zoom-in var(--ppi-dur, 0.5s) ease-out    var(--ppi-delay, 0s) var(--ppi-count, 1) both; }
+    .ppi-fade-up { animation: ppi-fade-up var(--ppi-dur, 0.5s) ease-out    var(--ppi-delay, 0s) var(--ppi-count, 1) both; }
     @media (prefers-reduced-motion: reduce) {
       .ppi-spin, .ppi-pulse, .ppi-bounce, .ppi-shake,
       .ppi-wiggle, .ppi-ping, .ppi-blink, .ppi-float,
       .ppi-heartbeat, .ppi-flash, .ppi-tada, .ppi-jello,
-      .ppi-swing, .ppi-rubber-band, .ppi-flip-x, .ppi-breathe {
+      .ppi-swing, .ppi-rubber-band, .ppi-flip-x, .ppi-breathe,
+      .ppi-neon, .ppi-glitch, .ppi-wobble, .ppi-roll, .ppi-zoom-in, .ppi-fade-up {
         animation: none;
       }
     }
@@ -164,6 +212,14 @@ const SPEED_DURATION: Record<string, Record<string, string>> = {
   rubberBand: { slow: '1.6s', normal: '0.9s',  fast: '0.45s' },
   flipX:      { slow: '1.8s', normal: '1s',    fast: '0.5s'  },
   breathe:    { slow: '6s',   normal: '4s',    fast: '2s'    },
+  erase:      { slow: '2s',   normal: '1s',    fast: '0.5s'  },
+  trace:      { slow: '4s',   normal: '2s',    fast: '1s'    },
+  neon:       { slow: '3s',   normal: '2s',    fast: '0.8s'  },
+  glitch:     { slow: '0.8s', normal: '0.4s',  fast: '0.2s'  },
+  wobble:     { slow: '1.8s', normal: '1s',    fast: '0.5s'  },
+  roll:       { slow: '1.4s', normal: '0.8s',  fast: '0.4s'  },
+  zoomIn:     { slow: '0.8s', normal: '0.5s',  fast: '0.25s' },
+  fadeUp:     { slow: '0.8s', normal: '0.5s',  fast: '0.25s' },
 }
 
 function resolveAnimDuration(animType: string, speed: string, duration?: number): string {
@@ -211,9 +267,33 @@ function ensureDrawStyles() {
       stroke-dashoffset: var(--ppi-draw-len, 100);
       animation: ppi-draw var(--ppi-dur, 1s) ease-out var(--ppi-delay, 0s) var(--ppi-count, 1) forwards;
     }
+    @keyframes ppi-erase {
+      from { stroke-dashoffset: 0; }
+      to   { stroke-dashoffset: var(--ppi-draw-len, 100); }
+    }
+    .ppi-erase path, .ppi-erase circle, .ppi-erase line,
+    .ppi-erase polyline, .ppi-erase rect, .ppi-erase ellipse {
+      stroke-dasharray: var(--ppi-draw-len, 100);
+      stroke-dashoffset: 0;
+      animation: ppi-erase var(--ppi-dur, 1s) ease-in var(--ppi-delay, 0s) var(--ppi-count, 1) forwards;
+    }
+    @keyframes ppi-trace {
+      0%   { stroke-dashoffset: 0; }
+      100% { stroke-dashoffset: calc(-1 * var(--ppi-draw-len, 100)); }
+    }
+    .ppi-trace path, .ppi-trace circle, .ppi-trace line,
+    .ppi-trace polyline, .ppi-trace rect, .ppi-trace ellipse {
+      stroke-dasharray: var(--ppi-trace-len, 30) calc(var(--ppi-draw-len, 100) - var(--ppi-trace-len, 30));
+      stroke-dashoffset: 0;
+      animation: ppi-trace var(--ppi-dur, 2s) linear var(--ppi-delay, 0s) var(--ppi-count, infinite);
+    }
     @media (prefers-reduced-motion: reduce) {
       .ppi-draw path, .ppi-draw circle, .ppi-draw line,
-      .ppi-draw polyline, .ppi-draw rect, .ppi-draw ellipse {
+      .ppi-draw polyline, .ppi-draw rect, .ppi-draw ellipse,
+      .ppi-erase path, .ppi-erase circle, .ppi-erase line,
+      .ppi-erase polyline, .ppi-erase rect, .ppi-erase ellipse,
+      .ppi-trace path, .ppi-trace circle, .ppi-trace line,
+      .ppi-trace polyline, .ppi-trace rect, .ppi-trace ellipse {
         animation: none;
         stroke-dasharray: unset;
         stroke-dashoffset: unset;
@@ -238,13 +318,17 @@ function buildBaseTransform(rotate?: number, flip?: IconFlip): string {
 
 type AnimKey = 'spin' | 'pulse' | 'bounce' | 'shake' | 'wiggle' | 'ping' | 'blink' | 'float'
              | 'heartbeat' | 'flash' | 'tada' | 'jello' | 'swing' | 'rubberBand' | 'flipX' | 'breathe'
+             | 'erase' | 'trace' | 'neon' | 'glitch' | 'wobble' | 'roll' | 'zoomIn' | 'fadeUp'
 const ANIM_PRIORITY: AnimKey[] = [
   'spin', 'pulse', 'bounce', 'shake', 'wiggle', 'ping', 'blink', 'float',
   'heartbeat', 'flash', 'tada', 'jello', 'swing', 'rubberBand', 'flipX', 'breathe',
+  'neon', 'glitch', 'trace', 'wobble', 'erase', 'roll', 'zoomIn', 'fadeUp',
 ]
 const ANIM_CLASS: Partial<Record<AnimKey, string>> = {
   rubberBand: 'ppi-rubber-band',
   flipX:      'ppi-flip-x',
+  zoomIn:     'ppi-zoom-in',
+  fadeUp:     'ppi-fade-up',
 }
 function animClass(key: AnimKey): string {
   return ANIM_CLASS[key] ?? `ppi-${key}`
@@ -261,7 +345,8 @@ export const Icon = forwardRef<SVGSVGElement, IconProps & { children: React.Reac
       size, color, className, label, strokeWidth, style, children,
       rotate, flip, spin, pulse, bounce, shake, wiggle, ping, blink, float,
       heartbeat, flash, tada, jello, swing, rubberBand, flipX, breathe,
-      draw, trigger, playOnce,
+      draw, erase, trace, neon, glitch, wobble, roll, zoomIn, fadeUp,
+      trigger, playOnce,
       speed, duration, delay, iterationCount, easing,
       fill, strokeLinecap, strokeLinejoin, variant,
       opacity, shadow,
@@ -333,6 +418,14 @@ export const Icon = forwardRef<SVGSVGElement, IconProps & { children: React.Reac
 
     // Advanced animation controls
     const resolvedDraw     = draw     ?? ctx.draw     ?? false
+    const resolvedErase    = erase    ?? ctx.erase    ?? false
+    const resolvedTrace    = trace    ?? ctx.trace    ?? false
+    const resolvedNeon     = neon     ?? ctx.neon     ?? false
+    const resolvedGlitch   = glitch   ?? ctx.glitch   ?? false
+    const resolvedWobble   = wobble   ?? ctx.wobble   ?? false
+    const resolvedRoll     = roll     ?? ctx.roll     ?? false
+    const resolvedZoomIn   = zoomIn   ?? ctx.zoomIn   ?? false
+    const resolvedFadeUp   = fadeUp   ?? ctx.fadeUp   ?? false
     const resolvedTrigger  = trigger  ?? ctx.trigger  ?? 'auto'
     const resolvedPlayOnce = playOnce ?? ctx.playOnce ?? false
 
@@ -355,12 +448,16 @@ export const Icon = forwardRef<SVGSVGElement, IconProps & { children: React.Reac
       heartbeat: resolvedHeartbeat, flash: resolvedFlash, tada: resolvedTada,
       jello: resolvedJello, swing: resolvedSwing, rubberBand: resolvedRubberBand,
       flipX: resolvedFlipX, breathe: resolvedBreathe,
+      erase: resolvedErase, trace: resolvedTrace,
+      neon: resolvedNeon, glitch: resolvedGlitch,
+      wobble: resolvedWobble, roll: resolvedRoll,
+      zoomIn: resolvedZoomIn, fadeUp: resolvedFadeUp,
     }
     const activeAnim = ANIM_PRIORITY.find(k => animFlags[k]) ?? null
     const isAnimating = activeAnim !== null
 
     if (isAnimating) ensureAnimStyles()
-    if (resolvedDraw) ensureDrawStyles()
+    if (resolvedDraw || resolvedErase || resolvedTrace) ensureDrawStyles()
 
     const baseTransform = buildBaseTransform(resolvedRotate, resolvedFlip)
 
@@ -375,20 +472,23 @@ export const Icon = forwardRef<SVGSVGElement, IconProps & { children: React.Reac
       computedStyle.transform = baseTransform
     }
 
-    // Animation timing custom properties (shared by both regular anims and draw)
-    if (activeAnim || resolvedDraw) {
-      const durSource = activeAnim ?? 'draw'
+    // Animation timing custom properties (shared by both regular anims and draw-family)
+    const drawFamilyActive = resolvedDraw || resolvedErase || resolvedTrace
+    if (activeAnim || drawFamilyActive) {
+      const durSource = activeAnim ?? (resolvedErase ? 'erase' : resolvedTrace ? 'trace' : 'draw')
       computedStyle['--ppi-dur']   = resolveAnimDuration(durSource, resolvedSpeed, resolvedDuration)
       computedStyle['--ppi-delay'] = resolvedDelay != null ? `${resolvedDelay}ms` : '0s'
-      // draw defaults to 1 iteration; regular anims default to infinite
-      const defaultCount = resolvedDraw && !activeAnim ? 1 : 'infinite'
+      // entrance & erase animations default to 1 iteration; looping anims default to infinite
+      const isOnceByDefault = (drawFamilyActive && !resolvedTrace && !activeAnim)
+        || ['erase', 'roll', 'zoomIn', 'fadeUp'].includes(activeAnim ?? '')
+      const defaultCount = isOnceByDefault ? 1 : 'infinite'
       computedStyle['--ppi-count'] = String(resolvedIterationCount ?? defaultCount)
       if (resolvedEasing != null) {
         computedStyle['--ppi-ease'] = resolvedEasing
       }
     }
-    // Draw speed preset (1s normal, reuses SPEED_DURATION fallback)
-    if (resolvedDraw && !activeAnim && !resolvedDuration) {
+    // draw-only speed preset (no activeAnim, no custom duration)
+    if (resolvedDraw && !activeAnim && !resolvedErase && !resolvedTrace && !resolvedDuration) {
       computedStyle['--ppi-dur'] = { slow: '2s', normal: '1s', fast: '0.5s' }[resolvedSpeed] ?? '1s'
     }
 
@@ -426,17 +526,21 @@ export const Icon = forwardRef<SVGSVGElement, IconProps & { children: React.Reac
     const classParts = [classNamePrefix, className, ...animClasses, classNameSuffix].filter(Boolean)
     const finalClassName = classParts.length > 0 ? classParts.join(' ') : undefined
 
-    // --- Draw: compute per-element path lengths after mount/update ---
+    // --- Draw / Erase / Trace: compute per-element path lengths after mount/update ---
     useEffect(() => {
-      if (!resolvedDraw || !svgRef.current) return
+      if ((!resolvedDraw && !resolvedErase && !resolvedTrace) || !svgRef.current) return
       const elements = svgRef.current.querySelectorAll('path, circle, line, polyline, rect, ellipse')
       elements.forEach(el => {
         const len = typeof (el as SVGGeometryElement).getTotalLength === 'function'
           ? (el as SVGGeometryElement).getTotalLength()
           : 100
-        ;(el as SVGElement & { style: CSSStyleDeclaration }).style.setProperty('--ppi-draw-len', String(len))
+        const s = (el as SVGElement & { style: CSSStyleDeclaration }).style
+        s.setProperty('--ppi-draw-len', String(len))
+        if (resolvedTrace) {
+          s.setProperty('--ppi-trace-len', String(Math.max(len * 0.3, 20)))
+        }
       })
-    }, [resolvedDraw])
+    }, [resolvedDraw, resolvedErase, resolvedTrace])
 
     // --- Trigger: control animation playback via event listeners / IntersectionObserver ---
     useEffect(() => {

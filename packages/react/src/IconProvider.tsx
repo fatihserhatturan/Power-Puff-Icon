@@ -43,6 +43,22 @@ export interface IconContextValue {
   breathe?: boolean
   /** SVG draw (sketch) animation — strokes revealed as if hand-drawn */
   draw?: boolean
+  /** Reverse of draw — strokes disappear as if being erased */
+  erase?: boolean
+  /** A short stroke segment travels continuously along the path */
+  trace?: boolean
+  /** Pulsing neon glow using drop-shadow filter animation */
+  neon?: boolean
+  /** Digital glitch: hue-rotate + translate jitter */
+  glitch?: boolean
+  /** Animate.css-style wobble: translateX + rotateZ combination */
+  wobble?: boolean
+  /** Rolling entrance: translateX from left + rotateZ 360° */
+  roll?: boolean
+  /** Scale entrance: scale(0.3) → scale(1) with opacity */
+  zoomIn?: boolean
+  /** Fade-up entrance: translateY(-16px) → 0 with opacity */
+  fadeUp?: boolean
   /** Controls when the animation starts playing */
   trigger?: AnimationTrigger
   /** When true, the animation plays only once and then stops */

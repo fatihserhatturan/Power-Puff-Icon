@@ -101,6 +101,7 @@ const SIZES: IconSize[] = ['xs', 'sm', 'md', 'lg', 'xl', '2xl']
 const ANIM_TYPES = [
   'none', 'spin', 'pulse', 'bounce', 'shake', 'wiggle', 'ping', 'blink', 'float',
   'heartbeat', 'flash', 'tada', 'jello', 'swing', 'rubberBand', 'flipX', 'breathe',
+  'neon', 'glitch', 'wobble', 'roll', 'zoomIn', 'fadeUp', 'erase', 'trace',
 ] as const
 
 // ---------------------------------------------------------------------------
@@ -545,6 +546,14 @@ export function Playground() {
                 rubberBand={state.animation === 'rubberBand' || undefined}
                 flipX={state.animation === 'flipX' || undefined}
                 breathe={state.animation === 'breathe' || undefined}
+                neon={state.animation === 'neon' || undefined}
+                glitch={state.animation === 'glitch' || undefined}
+                wobble={state.animation === 'wobble' || undefined}
+                roll={state.animation === 'roll' || undefined}
+                zoomIn={state.animation === 'zoomIn' || undefined}
+                fadeUp={state.animation === 'fadeUp' || undefined}
+                erase={state.animation === 'erase' || undefined}
+                trace={state.animation === 'trace' || undefined}
                 draw={state.draw || undefined}
                 trigger={state.trigger !== 'auto' ? state.trigger : undefined}
                 speed={state.speed}
