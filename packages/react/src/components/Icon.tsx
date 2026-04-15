@@ -1,6 +1,12 @@
 import { resolveSize } from '@beluga-icon/core'
 import type { IconBaseProps, IconFlip, AnimConfig, AnimationType } from '@beluga-icon/core'
-import { forwardRef, useEffect, useRef, type SVGProps } from 'react'
+import { forwardRef, useEffect, useLayoutEffect, useRef, type SVGProps } from 'react'
+
+// useLayoutEffect fires synchronously after DOM mutations, before the browser paints.
+// This ensures path lengths are measured and CSS custom properties set before the first
+// animation frame — avoiding the default-value flash seen with useEffect.
+// Falls back to useEffect in SSR environments where the DOM is unavailable.
+const useDrawEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
 import { useIconContext } from '../IconProvider'
 import {
   type AnimKey,
@@ -261,9 +267,12 @@ export const Icon = forwardRef<SVGSVGElement, IconProps & { children: React.Reac
     const finalClassName = classParts.length > 0 ? classParts.join(' ') : undefined
 
     // ---------------------------------------------------------------------------
-    // Effect: draw / erase / trace — compute per-element path lengths after mount
+    // Effect: draw / erase / trace — measure path lengths and set CSS variables.
+    // useLayoutEffect (or its SSR-safe alias) fires before the browser paints,
+    // so the animation always starts with the correct --ppi-draw-len values
+    // instead of the CSS fallback defaults.
     // ---------------------------------------------------------------------------
-    useEffect(() => {
+    useDrawEffect(() => {
       if (!isDrawFamily || !svgRef.current) return
       const elements = svgRef.current.querySelectorAll('path, circle, line, polyline, rect, ellipse')
       elements.forEach(el => {
@@ -273,7 +282,11 @@ export const Icon = forwardRef<SVGSVGElement, IconProps & { children: React.Reac
         const s = (el as SVGElement & { style: CSSStyleDeclaration }).style
         s.setProperty('--ppi-draw-len', String(len))
         if (activeAnim === 'trace') {
-          s.setProperty('--ppi-trace-len', String(Math.max(len * 0.3, 20)))
+          const traceLen = Math.max(len * 0.3, 20)
+          s.setProperty('--ppi-trace-len', String(traceLen))
+          // Pre-compute the negative offset so @keyframes doesn't need calc().
+          // calc(-1 * var()) inside @keyframes has uneven browser support.
+          s.setProperty('--ppi-trace-offset', String(-len))
         }
       })
     }, [isDrawFamily, activeAnim])

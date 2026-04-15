@@ -3,7 +3,7 @@ export const durations = { slow: '4s', normal: '2s', fast: '1s' } as const
 export const css = `
   @keyframes ppi-trace {
     0%   { stroke-dashoffset: 0; }
-    100% { stroke-dashoffset: calc(-1 * var(--ppi-draw-len, 100)); }
+    100% { stroke-dashoffset: var(--ppi-trace-offset, -100); }
   }
   .ppi-trace path,
   .ppi-trace circle,
