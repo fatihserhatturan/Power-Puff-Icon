@@ -1,40 +1,26 @@
+import * as draw  from './presets/draw'
+import * as erase from './presets/erase'
+import * as trace from './presets/trace'
+
+// ---------------------------------------------------------------------------
+// Speed → duration lookup for draw-family animations
+// ---------------------------------------------------------------------------
+
+export const DRAW_SPEED_DURATION: Record<string, Record<string, string>> = {
+  draw:  draw.durations,
+  erase: erase.durations,
+  trace: trace.durations,
+}
+
+// ---------------------------------------------------------------------------
+// Runtime CSS injection (SSR-safe)
+// ---------------------------------------------------------------------------
+
 const DRAW_STYLE_ID = 'ppi-draw-styles'
 
-const CSS = `
-  @keyframes ppi-draw {
-    from { stroke-dashoffset: var(--ppi-draw-len, 100); }
-    to   { stroke-dashoffset: 0; }
-  }
-  .ppi-draw path,
-  .ppi-draw circle,
-  .ppi-draw line,
-  .ppi-draw polyline,
-  .ppi-draw rect,
-  .ppi-draw ellipse {
-    stroke-dasharray: var(--ppi-draw-len, 100);
-    stroke-dashoffset: var(--ppi-draw-len, 100);
-    animation: ppi-draw var(--ppi-dur, 1s) ease-out var(--ppi-delay, 0s) var(--ppi-count, 1) forwards;
-  }
-  @keyframes ppi-erase {
-    from { stroke-dashoffset: 0; }
-    to   { stroke-dashoffset: var(--ppi-draw-len, 100); }
-  }
-  .ppi-erase path, .ppi-erase circle, .ppi-erase line,
-  .ppi-erase polyline, .ppi-erase rect, .ppi-erase ellipse {
-    stroke-dasharray: var(--ppi-draw-len, 100);
-    stroke-dashoffset: 0;
-    animation: ppi-erase var(--ppi-dur, 1s) ease-in var(--ppi-delay, 0s) var(--ppi-count, 1) forwards;
-  }
-  @keyframes ppi-trace {
-    0%   { stroke-dashoffset: 0; }
-    100% { stroke-dashoffset: calc(-1 * var(--ppi-draw-len, 100)); }
-  }
-  .ppi-trace path, .ppi-trace circle, .ppi-trace line,
-  .ppi-trace polyline, .ppi-trace rect, .ppi-trace ellipse {
-    stroke-dasharray: var(--ppi-trace-len, 30) calc(var(--ppi-draw-len, 100) - var(--ppi-trace-len, 30));
-    stroke-dashoffset: 0;
-    animation: ppi-trace var(--ppi-dur, 2s) linear var(--ppi-delay, 0s) var(--ppi-count, infinite);
-  }
+const COMBINED_CSS =
+  draw.css + erase.css + trace.css +
+  `
   @media (prefers-reduced-motion: reduce) {
     .ppi-draw path, .ppi-draw circle, .ppi-draw line,
     .ppi-draw polyline, .ppi-draw rect, .ppi-draw ellipse,
@@ -54,6 +40,6 @@ export function ensureDrawStyles(): void {
   if (document.getElementById(DRAW_STYLE_ID)) return
   const el = document.createElement('style')
   el.id = DRAW_STYLE_ID
-  el.textContent = CSS
+  el.textContent = COMBINED_CSS
   document.head.appendChild(el)
 }
