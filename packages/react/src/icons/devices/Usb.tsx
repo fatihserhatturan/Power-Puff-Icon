@@ -15,14 +15,12 @@ export const UsbMeta: IconMeta = {
 export const UsbIcon = forwardRef<SVGSVGElement, IconProps>(function UsbIcon(props, ref) {
   return (
     <Icon ref={ref} {...props}>
-      <path d="M10 14l4-4"/>
-  <path d="M8 18a4 4 0 1 0 8 0"/>
-  <path d="M12 2v8"/>
-  <path d="M9 5l3-3 3 3"/>
-  <line x1="6" y1="10" x2="10" y2="10"/>
-  <line x1="14" y1="8" x2="18" y2="8"/>
-  <line x1="6" y1="8" x2="6" y2="12"/>
-  <line x1="18" y1="6" x2="18" y2="10"/>
+      <polyline points="10 5 12 2 14 5"/>
+  <line x1="12" y1="2" x2="12" y2="12"/>
+  <polyline points="12 12 7 12 7 15"/>
+  <polyline points="12 12 17 12 17 15"/>
+  <rect x="5" y="15" width="4" height="4"/>
+  <circle cx="17" cy="17" r="2"/>
     </Icon>
   )
 })

@@ -15,9 +15,10 @@ export const ClockAlertMeta: IconMeta = {
 export const ClockAlertIcon = forwardRef<SVGSVGElement, IconProps>(function ClockAlertIcon(props, ref) {
   return (
     <Icon ref={ref} {...props}>
-      <circle cx="12" cy="12" r="10"/>
-  <polyline points="12 6 12 12 16 14"/>
-  <line x1="12" y1="17" x2="12" y2="17.01"/>
+      <circle cx="12" cy="12" r="9"/>
+  <polyline points="12 7 12 12 15 10"/>
+  <line x1="12" y1="15" x2="12" y2="18.5"/>
+  <line x1="12" y1="20.5" x2="12" y2="20.5"/>
     </Icon>
   )
 })
