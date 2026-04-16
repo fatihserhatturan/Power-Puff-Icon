@@ -1,8 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <rect x="4" y="3" width="16" height="13" rx="3"/>
-  <path d="M4 11h16"/>
-  <circle cx="8.5" cy="17.5" r="2.5"/>
-  <circle cx="15.5" cy="17.5" r="2.5"/>
-  <path d="m6 20 2-2.5"/>
-  <path d="m18 20-2-2.5"/>
+  <!-- Train body -->
+  <rect x="2" y="3" width="20" height="13" rx="2"/>
+  <!-- Left window -->
+  <rect x="4" y="5" width="5" height="5" rx="1"/>
+  <!-- Right window -->
+  <rect x="15" y="5" width="5" height="5" rx="1"/>
+  <!-- Center door divider -->
+  <line x1="12" y1="11" x2="12" y2="16"/>
+  <!-- Door handle hints -->
+  <line x1="10.5" y1="13.5" x2="12" y2="13.5"/>
+  <line x1="12" y1="13.5" x2="13.5" y2="13.5"/>
+  <!-- Undercarriage posts -->
+  <line x1="6" y1="16" x2="6" y2="18"/>
+  <line x1="18" y1="16" x2="18" y2="18"/>
+  <!-- Wheels -->
+  <circle cx="6" cy="19.5" r="1.5"/>
+  <circle cx="18" cy="19.5" r="1.5"/>
+  <!-- Wheel axle bar -->
+  <line x1="7.5" y1="19.5" x2="16.5" y2="19.5"/>
+  <!-- Rail track -->
+  <line x1="1" y1="21.5" x2="23" y2="21.5"/>
 </svg>

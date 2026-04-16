@@ -1,9 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M4 6h16"/>
-  <path d="M9 6v5a3 3 0 0 0 6 0V6"/>
-  <path d="M12 11v5"/>
-  <path d="M9 16H7a2 2 0 0 0-2 2v1"/>
-  <path d="M15 16h2a2 2 0 0 1 2 2v1"/>
-  <path d="M6 22h12"/>
-  <path d="M12 3v3"/>
+  <!-- Main rotor blades -->
+  <path d="M3 7h18"/>
+  <!-- Rotor mast -->
+  <path d="M12 7v2"/>
+  <!-- Fuselage with tapered tail boom -->
+  <path d="M3 9h10l7 2-7 2H3c-1 0-2-1-2-2s1-2 2-2z"/>
+  <!-- Cockpit window -->
+  <path d="M4 11c0-1 .7-1.5 1.5-1.5H8v3H5.5C4.7 12.5 4 12 4 11z"/>
+  <!-- Tail rotor -->
+  <path d="M20 9v6"/>
+  <!-- Landing skid struts -->
+  <path d="M6 13v3M13 13v3"/>
+  <!-- Landing skids -->
+  <path d="M4 16h5M11 16h5"/>
 </svg>

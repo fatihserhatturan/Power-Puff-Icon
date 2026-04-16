@@ -12,15 +12,17 @@ export const RssSquareMeta: IconMeta = {
   version: '0.1.0',
 }
 
-export const RssSquareIcon = forwardRef<SVGSVGElement, IconProps>(function RssSquareIcon(props, ref) {
-  return (
-    <Icon ref={ref} {...props}>
-      <rect x="2" y="2" width="20" height="20" rx="2"/>
-  <path d="M8 18H6a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1Z"/>
-  <path d="M5 12a7 7 0 0 1 7 7"/>
-  <path d="M5 8a11 11 0 0 1 11 11"/>
-    </Icon>
-  )
-})
+export const RssSquareIcon = forwardRef<SVGSVGElement, IconProps>(
+  function RssSquareIcon(props, ref) {
+    return (
+      <Icon ref={ref} {...props}>
+        <rect x="2" y="2" width="20" height="20" rx="2" />
+        <circle cx="6" cy="17" r="1" />
+        <path d="M6 11a6 6 0 0 1 6 6" />
+        <path d="M6 7a10 10 0 0 1 10 10" />
+      </Icon>
+    )
+  },
+)
 
 RssSquareIcon.displayName = 'RssSquareIcon'

@@ -15,14 +15,13 @@ export const BuildingMeta: IconMeta = {
 export const BuildingIcon = forwardRef<SVGSVGElement, IconProps>(function BuildingIcon(props, ref) {
   return (
     <Icon ref={ref} {...props}>
-      <rect x="3" y="2" width="18" height="20" rx="1"/>
-  <path d="M9 22V12h6v10"/>
-  <rect x="7" y="6" width="2" height="2"/>
-  <rect x="11" y="6" width="2" height="2"/>
-  <rect x="15" y="6" width="2" height="2"/>
-  <rect x="7" y="10" width="2" height="2"/>
-  <rect x="11" y="10" width="2" height="2"/>
-  <rect x="15" y="10" width="2" height="2"/>
+      <rect x="3" y="2" width="18" height="20" rx="1" />
+      <rect x="6" y="5" width="2" height="3" />
+      <rect x="11" y="5" width="2" height="3" />
+      <rect x="16" y="5" width="2" height="3" />
+      <rect x="6" y="11" width="2" height="3" />
+      <rect x="16" y="11" width="2" height="3" />
+      <path d="M10 22v-5h4v5" />
     </Icon>
   )
 })
