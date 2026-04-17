@@ -15,9 +15,9 @@ export const BellDotMeta: IconMeta = {
 export const BellDotIcon = forwardRef<SVGSVGElement, IconProps>(function BellDotIcon(props, ref) {
   return (
     <Icon ref={ref} {...props}>
-      <path d="M19.4 14.9C20.2 16.4 21 17 21 17H3s3-2 3-9a6 6 0 0 1 .38-2.11"/>
-  <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
-  <circle cx="18" cy="8" r="3"/>
+      <path d="M11.7 2A6 6 0 0 0 6 8c0 5-1.5 7-3 9h16c-1.5-2-3-4-3-9" />
+      <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+      <circle cx="18" cy="5" r="2" />
     </Icon>
   )
 })

@@ -15,12 +15,14 @@ export const ApiMeta: IconMeta = {
 export const ApiIcon = forwardRef<SVGSVGElement, IconProps>(function ApiIcon(props, ref) {
   return (
     <Icon ref={ref} {...props}>
-      <rect x="1" y="8" width="5" height="8" rx="1"/>
-  <rect x="18" y="8" width="5" height="8" rx="1"/>
-  <path d="M6 10.5H17"/>
-  <path d="M14.5 8.5L17 10.5L14.5 12.5"/>
-  <path d="M18 13.5H7"/>
-  <path d="M9.5 11.5L7 13.5L9.5 15.5"/>
+      <rect x="8" y="5" width="8" height="14" rx="1" />
+      <line x1="10" y1="9" x2="14" y2="9" />
+      <line x1="10" y1="12" x2="14" y2="12" />
+      <line x1="10" y1="15" x2="14" y2="15" />
+      <path d="M2 8 H8" />
+      <path d="M5.5 6 L8 8 L5.5 10" />
+      <path d="M16 16 H22" />
+      <path d="M19.5 14 L22 16 L19.5 18" />
     </Icon>
   )
 })
