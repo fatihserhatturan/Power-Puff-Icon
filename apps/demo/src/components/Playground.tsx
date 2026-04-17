@@ -6,6 +6,7 @@ import type {
   AnimationSpeed,
   AnimationType,
   AnimationTrigger,
+  IconStyleType,
 } from '@beluga-icon/core'
 import {
   SearchIcon,
@@ -31,6 +32,19 @@ function toPascalCase(str: string): string {
     .join('')
 }
 
+const ICON_STYLES: { value: IconStyleType | 'none'; label: string; desc: string }[] = [
+  { value: 'none', label: 'None', desc: 'Ham ikon' },
+  { value: 'circle', label: 'Circle', desc: 'Dairesel arka plan' },
+  { value: 'rounded', label: 'Rounded', desc: 'Yuvarlatılmış kare' },
+  { value: 'glass', label: 'Glass', desc: 'Glassmorphism' },
+  { value: 'neon', label: 'Neon Ring', desc: 'Neon ışıltı çerçeve' },
+  { value: 'gradient', label: 'Gradient', desc: 'Gradient arka plan' },
+  { value: 'liquid', label: 'Liquid', desc: 'Sıvı organik şekil' },
+  { value: 'shadow', label: 'Shadow', desc: 'Yumuşak gölge kart' },
+  { value: 'outline-ring', label: 'Outline', desc: 'Çizgi çerçeve' },
+  { value: 'badge', label: 'Badge', desc: 'Pill rozet' },
+]
+
 interface PropState {
   variant?: IconVariant
   size: IconSize
@@ -49,6 +63,7 @@ interface PropState {
   easing: string
   trigger: AnimationTrigger
   opacity: number
+  iconStyle: IconStyleType | 'none'
 }
 
 const SPRING_EASING_PRESETS = [
@@ -78,6 +93,7 @@ const DEFAULTS: PropState = {
   easing: '',
   trigger: 'auto',
   opacity: 1,
+  iconStyle: 'none',
 }
 
 function buildSnippet(name: string, s: PropState): string {
@@ -104,6 +120,7 @@ function buildSnippet(name: string, s: PropState): string {
     if (s.trigger !== 'auto') attrs.push(`trigger="${s.trigger}"`)
   }
   if (s.opacity !== 1) attrs.push(`opacity={${s.opacity}}`)
+  if (s.iconStyle !== 'none') attrs.push(`iconStyle="${s.iconStyle}"`)
 
   if (attrs.length === 0) return `<${name} />`
   if (attrs.length <= 2) return `<${name} ${attrs.join(' ')} />`
@@ -464,6 +481,37 @@ export function Playground() {
               </div>
             </div>
 
+            {/* ── Icon Style ──────────────────────────── */}
+            <div className="pg-section">
+              <div className="pg-section-header">
+                <span className="pg-section-icon">
+                  <EyeIcon size="xs" />
+                </span>
+                <span className="pg-section-title">Icon Style</span>
+                {state.iconStyle !== 'none' && (
+                  <button className="pg-reset-btn" onClick={() => set('iconStyle', 'none')}>
+                    <RefreshIcon size="xs" /> Reset
+                  </button>
+                )}
+              </div>
+              <div className="pg-section-grid">
+                <div className="pg-group pg-section-grid--full">
+                  <div className="pg-row" style={{ flexWrap: 'wrap' }}>
+                    {ICON_STYLES.map(({ value, label, desc }) => (
+                      <button
+                        key={value}
+                        title={desc}
+                        className={`pg-btn${state.iconStyle === value ? ' active' : ''}`}
+                        onClick={() => set('iconStyle', value)}
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* ── Animation & Effects ─────────────────── */}
             <div className="pg-section">
               <div className="pg-section-header">
@@ -645,6 +693,7 @@ export function Playground() {
                 rotate={state.rotate !== 0 ? state.rotate : undefined}
                 flip={state.flip}
                 variant={state.variant}
+                iconStyle={state.iconStyle !== 'none' ? state.iconStyle : undefined}
                 spin={state.animation === 'spin' || undefined}
                 pulse={state.animation === 'pulse' || undefined}
                 bounce={state.animation === 'bounce' || undefined}

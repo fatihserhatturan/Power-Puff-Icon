@@ -10,6 +10,18 @@ export type IconFlip = 'horizontal' | 'vertical' | 'both'
 /** Visual style variant */
 export type IconVariant = 'outline' | 'bold' | 'sharp'
 
+/** Decorative container style applied around the icon */
+export type IconStyleType =
+  | 'circle'
+  | 'rounded'
+  | 'glass'
+  | 'neon'
+  | 'gradient'
+  | 'liquid'
+  | 'shadow'
+  | 'outline-ring'
+  | 'badge'
+
 /** Animation speed */
 export type AnimationSpeed = 'slow' | 'normal' | 'fast'
 
@@ -237,6 +249,8 @@ export interface IconBaseProps {
   variant?: IconVariant
   /** Icon opacity (0–1) */
   opacity?: number
+  /** Decorative container style rendered around the icon */
+  iconStyle?: IconStyleType
 }
 
 /**

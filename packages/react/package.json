@@ -20,8 +20,8 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
+    "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
     "size": "size-limit",
     "prepack": "npm run build",
     "test": "echo 'Tests run from monorepo root: npm test'"

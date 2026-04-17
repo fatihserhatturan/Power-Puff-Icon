@@ -1,0 +1,13 @@
+export const className = 'ppi-style-neon'
+export const css = `
+.ppi-style-neon {
+  border-radius: 50%;
+  padding: 14px;
+  border: 1.5px solid currentColor;
+  background: color-mix(in srgb, currentColor 6%, transparent);
+  filter:
+    drop-shadow(0 0 3px color-mix(in srgb, currentColor 80%, transparent))
+    drop-shadow(0 0 8px color-mix(in srgb, currentColor 45%, transparent))
+    drop-shadow(0 0 18px color-mix(in srgb, currentColor 20%, transparent));
+}
+`

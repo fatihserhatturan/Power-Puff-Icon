@@ -1,5 +1,6 @@
 import { resolveSize } from '@beluga-icon/core'
 import type { IconBaseProps, IconFlip, AnimConfig, AnimationType } from '@beluga-icon/core'
+import { ensureIconStyles } from '../styles/icon-styles'
 import { forwardRef, useEffect, useLayoutEffect, useRef, type SVGProps } from 'react'
 
 // useLayoutEffect fires synchronously after DOM mutations, before the browser paints.
@@ -108,6 +109,7 @@ export const Icon = forwardRef<SVGSVGElement, IconProps & { children: React.Reac
       strokeLinejoin,
       variant,
       opacity,
+      iconStyle,
       // ---- Legacy boolean animation props (still supported, animate takes priority) ----
       spin,
       pulse,
@@ -315,6 +317,11 @@ export const Icon = forwardRef<SVGSVGElement, IconProps & { children: React.Reac
       Object.keys(computedStyle).length > 0 ? { ...computedStyle, ...style } : style
 
     // ---------------------------------------------------------------------------
+    // Icon style — inject CSS once, then render wrapper span
+    // ---------------------------------------------------------------------------
+    if (iconStyle) ensureIconStyles()
+
+    // ---------------------------------------------------------------------------
     // className composition
     // ---------------------------------------------------------------------------
     const animClasses: string[] = []
@@ -479,7 +486,7 @@ export const Icon = forwardRef<SVGSVGElement, IconProps & { children: React.Reac
       }
     }, [resolvedTrigger, resolvedPlayOnce, isAnimating])
 
-    return (
+    const svgEl = (
       <svg
         ref={setRef}
         xmlns="http://www.w3.org/2000/svg"
@@ -501,5 +508,11 @@ export const Icon = forwardRef<SVGSVGElement, IconProps & { children: React.Reac
         {children}
       </svg>
     )
+
+    if (iconStyle) {
+      return <span className={`ppi-style-wrap ppi-style-${iconStyle}`}>{svgEl}</span>
+    }
+
+    return svgEl
   },
 )
