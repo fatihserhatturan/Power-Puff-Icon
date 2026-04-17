@@ -1,6 +1,22 @@
 import { useState, useMemo, useRef } from 'react'
-import type { IconSize, IconFlip, IconVariant, AnimationSpeed, AnimationType, AnimationTrigger } from '@beluga-icon/core'
-import { SearchIcon, CheckIcon, EyeIcon, PenToolIcon, MoveIcon, ZapIcon, RefreshIcon, CopyIcon } from '@beluga-icon/react'
+import type {
+  IconSize,
+  IconFlip,
+  IconVariant,
+  AnimationSpeed,
+  AnimationType,
+  AnimationTrigger,
+} from '@beluga-icon/core'
+import {
+  SearchIcon,
+  CheckIcon,
+  EyeIcon,
+  PenToolIcon,
+  MoveIcon,
+  ZapIcon,
+  RefreshIcon,
+  CopyIcon,
+} from '@beluga-icon/react'
 import { icons } from '../data/iconRegistry'
 import type { IconEntry } from '../data/iconRegistry'
 
@@ -9,7 +25,10 @@ import type { IconEntry } from '../data/iconRegistry'
 // ---------------------------------------------------------------------------
 
 function toPascalCase(str: string): string {
-  return str.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join('')
+  return str
+    .split('-')
+    .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+    .join('')
 }
 
 interface PropState {
@@ -59,7 +78,6 @@ const DEFAULTS: PropState = {
   easing: '',
   trigger: 'auto',
   opacity: 1,
-
 }
 
 function buildSnippet(name: string, s: PropState): string {
@@ -94,11 +112,49 @@ function buildSnippet(name: string, s: PropState): string {
 
 const SIZES: IconSize[] = ['xs', 'sm', 'md', 'lg', 'xl', '2xl']
 const ANIM_TYPES = [
-  'none', 'spin', 'pulse', 'bounce', 'shake', 'wiggle', 'ping', 'blink', 'float',
-  'heartbeat', 'flash', 'tada', 'jello', 'swing', 'rubberBand', 'flipX', 'breathe',
-  'draw', 'neon', 'glitch', 'wobble', 'roll', 'zoomIn', 'fadeUp', 'erase', 'trace',
-  'flicker', 'hologram', 'electric', 'ghost', 'levitate', 'burst', 'heat', 'crystal',
-  'springPop', 'decay', 'magnetPulse', 'wobbleSpring',
+  'none',
+  'spin',
+  'pulse',
+  'bounce',
+  'shake',
+  'wiggle',
+  'ping',
+  'blink',
+  'float',
+  'heartbeat',
+  'flash',
+  'tada',
+  'jello',
+  'swing',
+  'rubberBand',
+  'flipX',
+  'breathe',
+  'draw',
+  'neon',
+  'glitch',
+  'wobble',
+  'roll',
+  'zoomIn',
+  'fadeUp',
+  'erase',
+  'trace',
+  'flicker',
+  'hologram',
+  'electric',
+  'ghost',
+  'levitate',
+  'burst',
+  'heat',
+  'crystal',
+  'springPop',
+  'decay',
+  'magnetPulse',
+  'wobbleSpring',
+  'rgbSplit',
+  'liquidMorph',
+  'aurora',
+  'shatter',
+  'cinematic',
 ] as const
 
 // ---------------------------------------------------------------------------
@@ -110,19 +166,20 @@ export function Playground() {
   const [selected, setSelected] = useState<IconEntry>(icons[0])
   const [state, setState] = useState<PropState>(DEFAULTS)
   const [copied, setCopied] = useState(false)
-  const timerRef = useRef<ReturnType<typeof setTimeout>>()
+  const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
   function set<K extends keyof PropState>(key: K, value: PropState[K]) {
-    setState(prev => ({ ...prev, [key]: value }))
+    setState((prev) => ({ ...prev, [key]: value }))
   }
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase().trim()
     if (!q) return icons
-    return icons.filter(i =>
-      i.meta.name.includes(q) ||
-      i.meta.category.includes(q) ||
-      i.meta.tags.some(t => t.includes(q))
+    return icons.filter(
+      (i) =>
+        i.meta.name.includes(q) ||
+        i.meta.category.includes(q) ||
+        i.meta.tags.some((t) => t.includes(q)),
     )
   }, [search])
 
@@ -133,9 +190,11 @@ export function Playground() {
   const durNum = state.duration ? parseInt(state.duration, 10) : undefined
   const delNum = state.delay ? parseInt(state.delay, 10) : undefined
   const iterCount: number | 'infinite' | undefined =
-    state.iterationCount === 'infinite' ? 'infinite'
-    : state.iterationCount ? parseInt(state.iterationCount, 10)
-    : undefined
+    state.iterationCount === 'infinite'
+      ? 'infinite'
+      : state.iterationCount
+        ? parseInt(state.iterationCount, 10)
+        : undefined
 
   function handleCopy() {
     navigator.clipboard.writeText(snippet).catch(() => {})
@@ -146,7 +205,6 @@ export function Playground() {
 
   return (
     <div className="playground">
-
       {/* ── Icon Picker ─────────────────────────────── */}
       <div className="pg-picker">
         <div className="pg-picker-top">
@@ -158,14 +216,16 @@ export function Playground() {
               className="pg-search-input"
               placeholder="Search icons…"
               value={search}
-              onChange={e => setSearch(e.target.value)}
+              onChange={(e) => setSearch(e.target.value)}
             />
           </div>
-          <span className="pg-picker-count">{filtered.length} of {icons.length}</span>
+          <span className="pg-picker-count">
+            {filtered.length} of {icons.length}
+          </span>
         </div>
 
         <div className="pg-picker-grid">
-          {filtered.map(entry => {
+          {filtered.map((entry) => {
             const Ic = entry.component
             const active = entry.meta.name === selected.meta.name
             return (
@@ -180,39 +240,38 @@ export function Playground() {
               </button>
             )
           })}
-          {filtered.length === 0 && (
-            <p className="pg-picker-empty">No icons found</p>
-          )}
+          {filtered.length === 0 && <p className="pg-picker-empty">No icons found</p>}
         </div>
       </div>
 
       {/* ── Panel ───────────────────────────────────── */}
       <div className="pg-panel">
-
         {/* ── Orta: kontroller ── */}
         <div className="pg-panel-controls">
           <div className="pg-controls">
-
             {/* ── Appearance ──────────────────────────── */}
             <div className="pg-section">
               <div className="pg-section-header">
-                <span className="pg-section-icon"><EyeIcon size="xs" /></span>
+                <span className="pg-section-icon">
+                  <EyeIcon size="xs" />
+                </span>
                 <span className="pg-section-title">Appearance</span>
                 <button className="pg-reset-btn" onClick={() => setState(DEFAULTS)}>
                   <RefreshIcon size="xs" /> Reset
                 </button>
               </div>
               <div className="pg-section-grid">
-
                 <div className="pg-group">
                   <span className="pg-label">Variant</span>
                   <div className="pg-row">
-                    {(['outline', 'bold', 'sharp'] as IconVariant[]).map(v => (
+                    {(['outline', 'bold', 'sharp'] as IconVariant[]).map((v) => (
                       <button
                         key={v}
                         className={`pg-btn${(state.variant ?? 'outline') === v ? ' active' : ''}`}
                         onClick={() => set('variant', v === 'outline' ? undefined : v)}
-                      >{v}</button>
+                      >
+                        {v}
+                      </button>
                     ))}
                   </div>
                 </div>
@@ -220,58 +279,74 @@ export function Playground() {
                 <div className="pg-group">
                   <span className="pg-label">Size</span>
                   <div className="pg-row">
-                    {SIZES.map(s => (
+                    {SIZES.map((s) => (
                       <button
                         key={String(s)}
                         className={`pg-btn${state.size === s ? ' active' : ''}`}
                         onClick={() => set('size', s)}
-                      >{s}</button>
+                      >
+                        {s}
+                      </button>
                     ))}
                   </div>
                 </div>
 
                 <div className="pg-group pg-section-grid--full">
-                  <span className="pg-label">Color <em style={{ fontSize: 10, fontStyle: 'normal', color: 'var(--text-3)' }}>(stroke)</em></span>
+                  <span className="pg-label">
+                    Color{' '}
+                    <em style={{ fontSize: 10, fontStyle: 'normal', color: 'var(--text-3)' }}>
+                      (stroke)
+                    </em>
+                  </span>
                   <div className="pg-color-row">
                     <input
                       type="color"
                       className="pg-color-swatch"
                       value={state.color === 'currentColor' ? '#000000' : state.color}
-                      onChange={e => set('color', e.target.value)}
+                      onChange={(e) => set('color', e.target.value)}
                     />
                     <input
                       type="text"
                       className="pg-color-text"
                       value={state.color}
-                      onChange={e => set('color', e.target.value)}
+                      onChange={(e) => set('color', e.target.value)}
                     />
                     <button
                       className={`pg-btn${state.color === 'currentColor' ? ' active' : ''}`}
                       onClick={() => set('color', 'currentColor')}
-                    >inherit</button>
+                    >
+                      inherit
+                    </button>
                   </div>
                 </div>
 
                 <div className="pg-group pg-section-grid--full">
-                  <span className="pg-label">Fill <em style={{ fontSize: 10, fontStyle: 'normal', color: 'var(--text-3)' }}>(inside)</em></span>
+                  <span className="pg-label">
+                    Fill{' '}
+                    <em style={{ fontSize: 10, fontStyle: 'normal', color: 'var(--text-3)' }}>
+                      (inside)
+                    </em>
+                  </span>
                   <div className="pg-color-row">
                     <input
                       type="color"
                       className="pg-color-swatch"
                       style={{ opacity: state.fill === 'none' ? 0.4 : 1 }}
                       value={state.fill === 'none' ? '#ff4444' : state.fill}
-                      onChange={e => set('fill', e.target.value)}
+                      onChange={(e) => set('fill', e.target.value)}
                     />
                     <input
                       type="text"
                       className="pg-color-text"
                       value={state.fill}
-                      onChange={e => set('fill', e.target.value)}
+                      onChange={(e) => set('fill', e.target.value)}
                     />
                     <button
                       className={`pg-btn${state.fill === 'none' ? ' active' : ''}`}
                       onClick={() => set('fill', state.fill === 'none' ? '#ff4444' : 'none')}
-                    >none</button>
+                    >
+                      none
+                    </button>
                   </div>
                 </div>
 
@@ -282,23 +357,25 @@ export function Playground() {
                   <input
                     type="range"
                     className="stroke-slider"
-                    min={0} max={1} step={0.05}
+                    min={0}
+                    max={1}
+                    step={0.05}
                     value={state.opacity}
-                    onChange={e => set('opacity', parseFloat(e.target.value))}
+                    onChange={(e) => set('opacity', parseFloat(e.target.value))}
                   />
                 </div>
-
               </div>
             </div>
 
             {/* ── Stroke ──────────────────────────────── */}
             <div className="pg-section">
               <div className="pg-section-header">
-                <span className="pg-section-icon"><PenToolIcon size="xs" /></span>
+                <span className="pg-section-icon">
+                  <PenToolIcon size="xs" />
+                </span>
                 <span className="pg-section-title">Stroke</span>
               </div>
               <div className="pg-section-grid">
-
                 <div className="pg-group pg-section-grid--full">
                   <span className="pg-label">
                     Stroke Width <em className="pg-value">{state.strokeWidth}</em>
@@ -306,21 +383,25 @@ export function Playground() {
                   <input
                     type="range"
                     className="stroke-slider"
-                    min={0.5} max={4} step={0.25}
+                    min={0.5}
+                    max={4}
+                    step={0.25}
                     value={state.strokeWidth}
-                    onChange={e => set('strokeWidth', parseFloat(e.target.value))}
+                    onChange={(e) => set('strokeWidth', parseFloat(e.target.value))}
                   />
                 </div>
 
                 <div className="pg-group">
                   <span className="pg-label">Linecap</span>
                   <div className="pg-row">
-                    {(['round', 'butt', 'square'] as const).map(v => (
+                    {(['round', 'butt', 'square'] as const).map((v) => (
                       <button
                         key={v}
                         className={`pg-btn${state.strokeLinecap === v ? ' active' : ''}`}
                         onClick={() => set('strokeLinecap', v)}
-                      >{v}</button>
+                      >
+                        {v}
+                      </button>
                     ))}
                   </div>
                 </div>
@@ -328,27 +409,29 @@ export function Playground() {
                 <div className="pg-group">
                   <span className="pg-label">Linejoin</span>
                   <div className="pg-row">
-                    {(['round', 'miter', 'bevel'] as const).map(v => (
+                    {(['round', 'miter', 'bevel'] as const).map((v) => (
                       <button
                         key={v}
                         className={`pg-btn${state.strokeLinejoin === v ? ' active' : ''}`}
                         onClick={() => set('strokeLinejoin', v)}
-                      >{v}</button>
+                      >
+                        {v}
+                      </button>
                     ))}
                   </div>
                 </div>
-
               </div>
             </div>
 
             {/* ── Transform ───────────────────────────── */}
             <div className="pg-section">
               <div className="pg-section-header">
-                <span className="pg-section-icon"><MoveIcon size="xs" /></span>
+                <span className="pg-section-icon">
+                  <MoveIcon size="xs" />
+                </span>
                 <span className="pg-section-title">Transform</span>
               </div>
               <div className="pg-section-grid">
-
                 <div className="pg-group pg-section-grid--full">
                   <span className="pg-label">
                     Rotate <em className="pg-value">{state.rotate}°</em>
@@ -356,45 +439,51 @@ export function Playground() {
                   <input
                     type="range"
                     className="stroke-slider"
-                    min={0} max={359} step={1}
+                    min={0}
+                    max={359}
+                    step={1}
                     value={state.rotate}
-                    onChange={e => set('rotate', parseInt(e.target.value, 10))}
+                    onChange={(e) => set('rotate', parseInt(e.target.value, 10))}
                   />
                 </div>
 
                 <div className="pg-group pg-section-grid--full">
                   <span className="pg-label">Flip</span>
                   <div className="pg-row">
-                    {(['none', 'horizontal', 'vertical', 'both'] as const).map(v => (
+                    {(['none', 'horizontal', 'vertical', 'both'] as const).map((v) => (
                       <button
                         key={v}
                         className={`pg-btn${(!state.flip && v === 'none') || state.flip === v ? ' active' : ''}`}
-                        onClick={() => set('flip', v === 'none' ? undefined : v as IconFlip)}
-                      >{v}</button>
+                        onClick={() => set('flip', v === 'none' ? undefined : (v as IconFlip))}
+                      >
+                        {v}
+                      </button>
                     ))}
                   </div>
                 </div>
-
               </div>
             </div>
 
             {/* ── Animation & Effects ─────────────────── */}
             <div className="pg-section">
               <div className="pg-section-header">
-                <span className="pg-section-icon"><ZapIcon size="xs" /></span>
+                <span className="pg-section-icon">
+                  <ZapIcon size="xs" />
+                </span>
                 <span className="pg-section-title">Animation & Effects</span>
               </div>
               <div className="pg-section-grid">
-
                 <div className="pg-group pg-section-grid--full">
                   <span className="pg-label">Animation</span>
                   <div className="pg-row" style={{ flexWrap: 'wrap' }}>
-                    {ANIM_TYPES.map(v => (
+                    {ANIM_TYPES.map((v) => (
                       <button
                         key={v}
                         className={`pg-btn${state.animation === v ? ' active' : ''}`}
                         onClick={() => set('animation', v as AnimationType | 'none')}
-                      >{v}</button>
+                      >
+                        {v}
+                      </button>
                     ))}
                   </div>
                 </div>
@@ -405,12 +494,14 @@ export function Playground() {
                       <div className="pg-group">
                         <span className="pg-label">Speed</span>
                         <div className="pg-row">
-                          {(['slow', 'normal', 'fast'] as AnimationSpeed[]).map(v => (
+                          {(['slow', 'normal', 'fast'] as AnimationSpeed[]).map((v) => (
                             <button
                               key={v}
                               className={`pg-btn${state.speed === v ? ' active' : ''}`}
                               onClick={() => set('speed', v)}
-                            >{v}</button>
+                            >
+                              {v}
+                            </button>
                           ))}
                         </div>
                       </div>
@@ -423,14 +514,33 @@ export function Playground() {
                         <input
                           type="number"
                           className="pg-color-text"
-                          min={0} step={100}
+                          min={0}
+                          step={100}
                           placeholder="e.g. 800"
                           value={state.duration}
-                          onChange={e => set('duration', e.target.value)}
+                          onChange={(e) => set('duration', e.target.value)}
                         />
                         <div className="pg-number-spin">
-                          <button onClick={() => set('duration', String(Math.max(0, (parseInt(state.duration || '0') || 0) + 100)))}>▲</button>
-                          <button onClick={() => set('duration', String(Math.max(0, (parseInt(state.duration || '0') || 0) - 100)))}>▼</button>
+                          <button
+                            onClick={() =>
+                              set(
+                                'duration',
+                                String(Math.max(0, (parseInt(state.duration || '0') || 0) + 100)),
+                              )
+                            }
+                          >
+                            ▲
+                          </button>
+                          <button
+                            onClick={() =>
+                              set(
+                                'duration',
+                                String(Math.max(0, (parseInt(state.duration || '0') || 0) - 100)),
+                              )
+                            }
+                          >
+                            ▼
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -442,65 +552,87 @@ export function Playground() {
                         <input
                           type="number"
                           className="pg-color-text"
-                          min={0} step={100}
+                          min={0}
+                          step={100}
                           placeholder="e.g. 200"
                           value={state.delay}
-                          onChange={e => set('delay', e.target.value)}
+                          onChange={(e) => set('delay', e.target.value)}
                         />
                         <div className="pg-number-spin">
-                          <button onClick={() => set('delay', String(Math.max(0, (parseInt(state.delay || '0') || 0) + 100)))}>▲</button>
-                          <button onClick={() => set('delay', String(Math.max(0, (parseInt(state.delay || '0') || 0) - 100)))}>▼</button>
+                          <button
+                            onClick={() =>
+                              set(
+                                'delay',
+                                String(Math.max(0, (parseInt(state.delay || '0') || 0) + 100)),
+                              )
+                            }
+                          >
+                            ▲
+                          </button>
+                          <button
+                            onClick={() =>
+                              set(
+                                'delay',
+                                String(Math.max(0, (parseInt(state.delay || '0') || 0) - 100)),
+                              )
+                            }
+                          >
+                            ▼
+                          </button>
                         </div>
                       </div>
                     </div>
                     <div className="pg-group">
                       <span className="pg-label">Iterations</span>
                       <div className="pg-row">
-                        {(['infinite', '1', '2', '3'] as const).map(v => (
+                        {(['infinite', '1', '2', '3'] as const).map((v) => (
                           <button
                             key={v}
                             className={`pg-btn${state.iterationCount === v ? ' active' : ''}`}
                             onClick={() => set('iterationCount', v)}
-                          >{v}</button>
+                          >
+                            {v}
+                          </button>
                         ))}
                       </div>
                     </div>
                     <div className="pg-group">
                       <span className="pg-label">Trigger</span>
                       <div className="pg-row">
-                        {(['auto', 'hover', 'click', 'visible'] as AnimationTrigger[]).map(v => (
+                        {(['auto', 'hover', 'click', 'visible'] as AnimationTrigger[]).map((v) => (
                           <button
                             key={v}
                             className={`pg-btn${state.trigger === v ? ' active' : ''}`}
                             onClick={() => set('trigger', v)}
-                          >{v}</button>
+                          >
+                            {v}
+                          </button>
                         ))}
                       </div>
                     </div>
                     <div className="pg-group">
                       <span className="pg-label">Easing Preset</span>
                       <div className="pg-row" style={{ flexWrap: 'wrap' }}>
-                        {SPRING_EASING_PRESETS.map(p => (
+                        {SPRING_EASING_PRESETS.map((p) => (
                           <button
                             key={p.value}
                             className={`pg-btn${state.easing === p.value ? ' active' : ''}`}
                             onClick={() => set('easing', p.value)}
-                          >{p.label}</button>
+                          >
+                            {p.label}
+                          </button>
                         ))}
                       </div>
                     </div>
                   </div>
                 )}
-
               </div>
             </div>
-
           </div>
         </div>
 
         {/* ── Sağ sticky: preview + kod ── */}
         <div className="pg-panel-preview">
-
           <div className="pg-preview">
             <div className="pg-preview-icon">
               <IconComponent
@@ -550,6 +682,18 @@ export function Playground() {
                 magnetPulse={state.animation === 'magnetPulse' || undefined}
                 wobbleSpring={state.animation === 'wobbleSpring' || undefined}
                 draw={state.animation === 'draw' || undefined}
+                animate={
+                  ['rgbSplit', 'liquidMorph', 'aurora', 'shatter', 'cinematic'].includes(
+                    state.animation,
+                  )
+                    ? (state.animation as
+                        | 'rgbSplit'
+                        | 'liquidMorph'
+                        | 'aurora'
+                        | 'shatter'
+                        | 'cinematic')
+                    : undefined
+                }
                 trigger={state.trigger !== 'auto' ? state.trigger : undefined}
                 speed={state.speed}
                 duration={durNum}
@@ -573,11 +717,11 @@ export function Playground() {
                 {copied ? 'Copied!' : 'Copy'}
               </button>
             </div>
-            <pre className="pg-code"><code>{snippet}</code></pre>
+            <pre className="pg-code">
+              <code>{snippet}</code>
+            </pre>
           </div>
-
         </div>
-
       </div>
     </div>
   )
