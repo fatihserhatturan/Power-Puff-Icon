@@ -1,0 +1,29 @@
+// This file is auto-generated. Do not edit manually.
+// Source: svgs/devices/monitor-pause.svg
+import { forwardRef } from 'react'
+import type { IconMeta } from '@beluga-icon/core'
+import { Icon } from '../../components/Icon'
+import type { IconProps } from '../../components/Icon'
+
+export const MonitorPauseMeta: IconMeta = {
+  name: 'monitor-pause',
+  category: 'devices',
+  tags: [],
+  version: '0.1.0',
+}
+
+export const MonitorPauseIcon = forwardRef<SVGSVGElement, IconProps>(
+  function MonitorPauseIcon(props, ref) {
+    return (
+      <Icon ref={ref} {...props}>
+        <path d="M10 13V7" />
+        <path d="M14 13V7" />
+        <rect width="20" height="14" x="2" y="3" rx="2" />
+        <path d="M12 17v4" />
+        <path d="M8 21h8" />
+      </Icon>
+    )
+  },
+)
+
+MonitorPauseIcon.displayName = 'MonitorPauseIcon'

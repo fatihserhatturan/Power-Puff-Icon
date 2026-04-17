@@ -1,0 +1,29 @@
+// This file is auto-generated. Do not edit manually.
+// Source: svgs/buildings/tent-tree.svg
+import { forwardRef } from 'react'
+import type { IconMeta } from '@beluga-icon/core'
+import { Icon } from '../../components/Icon'
+import type { IconProps } from '../../components/Icon'
+
+export const TentTreeMeta: IconMeta = {
+  name: 'tent-tree',
+  category: 'buildings',
+  tags: [],
+  version: '0.1.0',
+}
+
+export const TentTreeIcon = forwardRef<SVGSVGElement, IconProps>(function TentTreeIcon(props, ref) {
+  return (
+    <Icon ref={ref} {...props}>
+      <circle cx="4" cy="4" r="2" />
+      <path d="m14 5 3-3 3 3" />
+      <path d="m14 10 3-3 3 3" />
+      <path d="M17 14V2" />
+      <path d="M17 14H7l-5 8h20Z" />
+      <path d="M8 14v8" />
+      <path d="m9 14 5 8" />
+    </Icon>
+  )
+})
+
+TentTreeIcon.displayName = 'TentTreeIcon'

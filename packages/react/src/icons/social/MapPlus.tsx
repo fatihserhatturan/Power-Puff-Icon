@@ -1,0 +1,27 @@
+// This file is auto-generated. Do not edit manually.
+// Source: svgs/social/map-plus.svg
+import { forwardRef } from 'react'
+import type { IconMeta } from '@beluga-icon/core'
+import { Icon } from '../../components/Icon'
+import type { IconProps } from '../../components/Icon'
+
+export const MapPlusMeta: IconMeta = {
+  name: 'map-plus',
+  category: 'social',
+  tags: [],
+  version: '0.1.0',
+}
+
+export const MapPlusIcon = forwardRef<SVGSVGElement, IconProps>(function MapPlusIcon(props, ref) {
+  return (
+    <Icon ref={ref} {...props}>
+      <path d="m11 19-1.106-.552a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0l4.212 2.106a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619V12" />
+      <path d="M15 5.764V12" />
+      <path d="M18 15v6" />
+      <path d="M21 18h-6" />
+      <path d="M9 3.236v15" />
+    </Icon>
+  )
+})
+
+MapPlusIcon.displayName = 'MapPlusIcon'

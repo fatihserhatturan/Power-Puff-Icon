@@ -1,0 +1,36 @@
+// This file is auto-generated. Do not edit manually.
+// Source: svgs/shapes/square-dashed.svg
+import { forwardRef } from 'react'
+import type { IconMeta } from '@beluga-icon/core'
+import { Icon } from '../../components/Icon'
+import type { IconProps } from '../../components/Icon'
+
+export const SquareDashedMeta: IconMeta = {
+  name: 'square-dashed',
+  category: 'shapes',
+  tags: [],
+  version: '0.1.0',
+}
+
+export const SquareDashedIcon = forwardRef<SVGSVGElement, IconProps>(
+  function SquareDashedIcon(props, ref) {
+    return (
+      <Icon ref={ref} {...props}>
+        <path d="M5 3a2 2 0 0 0-2 2" />
+        <path d="M19 3a2 2 0 0 1 2 2" />
+        <path d="M21 19a2 2 0 0 1-2 2" />
+        <path d="M5 21a2 2 0 0 1-2-2" />
+        <path d="M9 3h1" />
+        <path d="M9 21h1" />
+        <path d="M14 3h1" />
+        <path d="M14 21h1" />
+        <path d="M3 9v1" />
+        <path d="M21 9v1" />
+        <path d="M3 14v1" />
+        <path d="M21 14v1" />
+      </Icon>
+    )
+  },
+)
+
+SquareDashedIcon.displayName = 'SquareDashedIcon'
