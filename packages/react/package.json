@@ -35,10 +35,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/beluga-icon/beluga-icon",
+    "url": "https://github.com/fatihserhatturan/Beluga-Icon",
     "directory": "packages/react"
   },
-  "homepage": "https://github.com/beluga-icon/beluga-icon#readme",
+  "homepage": "https://github.com/fatihserhatturan/Beluga-Icon#readme",
   "peerDependencies": {
     "react": ">=17.0.0"
   },
