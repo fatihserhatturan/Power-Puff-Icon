@@ -174,7 +174,6 @@ Wrap your app (or a section) to set defaults once:
 
 ```tsx
 import { IconProvider } from '@beluga-icon/react'
-
 ;<IconProvider iconStyle="glass" animation="pulse" trigger="hover" size="lg">
   <SearchIcon /> {/* inherits all provider defaults */}
   <HeartIcon color="#ef4444" /> {/* override individual props */}
@@ -235,8 +234,9 @@ import { SearchIcon, HeartIcon, BellIcon } from '@beluga-icon/react'
 | buildings      | House, Office, Hospital, School                |
 | … and more     | math, chart, shapes, text, time, layout, users |
 
-[→ Browse all icons in the demo](https://github.com/beluga-icon/beluga-icon)
+[→ Browse all icons in the demo](https://github.com/fatihserhatturan/Beluga-Icon)
 
 ## License
 
-MIT
+MIT. Some icon artwork is derived from or inspired by Lucide Icons and remains
+subject to the notices in `THIRD_PARTY_NOTICES.md`.

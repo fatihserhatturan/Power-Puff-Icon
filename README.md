@@ -9,8 +9,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/fatihserhatturan/Power-Puff-Icon/actions/workflows/ci.yml">
-    <img src="https://github.com/fatihserhatturan/Power-Puff-Icon/actions/workflows/ci.yml/badge.svg" alt="CI" />
+  <a href="https://github.com/fatihserhatturan/Beluga-Icon/actions/workflows/ci.yml">
+    <img src="https://github.com/fatihserhatturan/Beluga-Icon/actions/workflows/ci.yml/badge.svg" alt="CI" />
   </a>
   <a href="https://www.npmjs.com/package/@beluga-icon/react">
     <img src="https://img.shields.io/npm/v/@beluga-icon/react?color=0ea5e9&label=npm" alt="npm version" />
@@ -252,6 +252,11 @@ Icons are **decorative by default** (`aria-hidden="true"`). Add a `label` to exp
 ```
 
 ---
+
+## License
+
+MIT. Some icon artwork is derived from or inspired by Lucide Icons and remains
+subject to the notices in [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md).
 
 ## Tree Shaking
 

@@ -40,6 +40,8 @@ type CssPreset = {
   css: string
 }
 
+type SpeedKey = keyof CssPreset['durations']
+
 const CSS_PRESETS: Record<string, CssPreset> = {
   spin,
   pulse,
@@ -78,20 +80,19 @@ const CSS_PRESETS: Record<string, CssPreset> = {
   cinematic,
 }
 
-export const SPEED_DURATION: Record<
-  string,
-  Record<'slow' | 'normal' | 'fast', string>
-> = Object.fromEntries(Object.entries(CSS_PRESETS).map(([key, p]) => [key, p.durations]))
+export const SPEED_DURATION: Record<string, Record<SpeedKey, string>> = Object.fromEntries(
+  Object.entries(CSS_PRESETS).map(([key, p]) => [key, p.durations]),
+)
 
 /**
  * Merge additional duration tables (draw, WAAPI) so a single lookup works for
  * every animation key. Called once during module initialisation.
  */
-export function extendSpeedDuration(extra: Record<string, Record<string, string>>): void {
+export function extendSpeedDuration(extra: Record<string, Record<SpeedKey, string>>): void {
   Object.assign(SPEED_DURATION, extra)
 }
 
-export function resolveAnimDuration(animType: string, speed: string, duration?: number): string {
+export function resolveAnimDuration(animType: string, speed: SpeedKey, duration?: number): string {
   if (duration != null) return `${duration}ms`
   return SPEED_DURATION[animType]?.[speed] ?? '1s'
 }

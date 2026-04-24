@@ -4,7 +4,7 @@ export default tseslint.config(
   // Generated icons ve build çıktıları lintlenmez
   { ignores: ['**/dist/**', '**/node_modules/**', 'packages/react/src/icons/**'] },
   {
-    files: ['packages/*/src/**/*.{ts,tsx}'],
+    files: ['packages/*/src/**/*.{ts,tsx}', 'apps/*/src/**/*.{ts,tsx}'],
     extends: [...tseslint.configs.recommended],
     rules: {
       '@typescript-eslint/no-explicit-any': 'warn',

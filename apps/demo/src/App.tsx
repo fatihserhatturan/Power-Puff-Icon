@@ -1,12 +1,19 @@
 import { useState, useEffect, useMemo } from 'react'
-import { SunIcon, MoonIcon, PackageIcon, Grid2x2Icon, WandIcon, HeartIcon, SearchIcon, XIcon } from '@beluga-icon/react'
+import {
+  SunIcon,
+  MoonIcon,
+  PackageIcon,
+  Grid2x2Icon,
+  WandIcon,
+  HeartIcon,
+  SearchIcon,
+  XIcon,
+} from '@beluga-icon/react'
 import { SearchBar } from './components/SearchBar'
 import { IconGrid } from './components/IconGrid'
 import { Playground } from './components/Playground'
 import { useIconSearch } from './hooks/useIconSearch'
 import { icons, categories } from './data/iconRegistry'
-
-const CATEGORIES_COUNT = 24
 
 function prefersDark() {
   return typeof window !== 'undefined'
@@ -32,7 +39,7 @@ export function App() {
   // Icon count per category
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = {}
-    icons.forEach(i => {
+    icons.forEach((i) => {
       counts[i.meta.category] = (counts[i.meta.category] || 0) + 1
     })
     return counts
@@ -42,10 +49,10 @@ export function App() {
   const filteredCategories = useMemo(() => {
     const q = catSearch.trim().toLowerCase()
     if (!q) return categories
-    return categories.filter(c => c.toLowerCase().includes(q))
+    return categories.filter((c) => c.toLowerCase().includes(q))
   }, [catSearch])
 
-  const handleThemeToggle = () => setDark(prev => !prev)
+  const handleThemeToggle = () => setDark((prev) => !prev)
 
   return (
     <div className="app">
@@ -111,7 +118,6 @@ export function App() {
         <>
           <main className="main">
             <aside className="sidebar">
-
               {/* Category search */}
               <div className="sidebar-section">
                 <span className="sidebar-section-title">Categories</span>
@@ -124,7 +130,7 @@ export function App() {
                     className="sidebar-cat-search-input"
                     placeholder="Filter categories…"
                     value={catSearch}
-                    onChange={e => setCatSearch(e.target.value)}
+                    onChange={(e) => setCatSearch(e.target.value)}
                     spellCheck={false}
                   />
                   {catSearch && (
@@ -144,7 +150,7 @@ export function App() {
                   <span className="sidebar-cat-name">All</span>
                   <span className="sidebar-cat-count">{icons.length}</span>
                 </button>
-                {filteredCategories.map(cat => (
+                {filteredCategories.map((cat) => (
                   <button
                     key={cat}
                     className={`sidebar-cat-item${category === cat ? ' active' : ''}`}
@@ -158,7 +164,6 @@ export function App() {
                   <p className="sidebar-cat-empty">No categories found</p>
                 )}
               </div>
-
             </aside>
 
             <section className="content">
@@ -166,7 +171,12 @@ export function App() {
 
               <p className="result-count">
                 {results.length} of {icons.length} icons
-                {category !== 'all' && <> in <strong>{category}</strong></>}
+                {category !== 'all' && (
+                  <>
+                    {' '}
+                    in <strong>{category}</strong>
+                  </>
+                )}
               </p>
 
               <IconGrid icons={results} />
@@ -174,7 +184,10 @@ export function App() {
           </main>
 
           <footer className="footer">
-            <p className="footer-text" style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+            <p
+              className="footer-text"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}
+            >
               Beluga Icon — {icons.length} open source icons
               <HeartIcon size="xs" />
               for React
