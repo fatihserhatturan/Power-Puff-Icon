@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "../..",
+    "paths": {
+      "@beluga-icon/core": ["packages/core/src/index.ts"]
+    },
+    "noEmit": true,
+    "rootDir": "../.."
+  },
+  "include": ["src/**/*", "../core/src/**/*"],
+  "exclude": ["src/__tests__/**"]
+}

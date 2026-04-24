@@ -13,7 +13,7 @@
     "generate": "tsx scripts/generate-icons.ts",
     "generate:watch": "tsx watch scripts/generate-icons.ts",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit -p packages/core/tsconfig.json && tsc --noEmit -p packages/react/tsconfig.json",
+    "typecheck": "tsc --noEmit -p packages/core/tsconfig.json && tsc -p packages/react/tsconfig.typecheck.json",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
