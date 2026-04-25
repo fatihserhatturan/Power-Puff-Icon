@@ -46,6 +46,6 @@
   "homepage": "https://github.com/beluga-icon/Beluga-Icon#readme",
   "devDependencies": {
     "tsup": "^8.3.0",
-    "typescript": "^6.0.2"
+    "typescript": "^6.0.3"
   }
 }
