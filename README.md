@@ -9,8 +9,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/fatihserhatturan/Beluga-Icon/actions/workflows/ci.yml">
-    <img src="https://github.com/fatihserhatturan/Beluga-Icon/actions/workflows/ci.yml/badge.svg" alt="CI" />
+  <a href="https://github.com/beluga-icon/Beluga-Icon/actions/workflows/ci.yml">
+    <img src="https://github.com/beluga-icon/Beluga-Icon/actions/workflows/ci.yml/badge.svg" alt="CI" />
   </a>
   <a href="https://www.npmjs.com/package/@beluga-icon/react">
     <img src="https://img.shields.io/npm/v/@beluga-icon/react?color=0ea5e9&label=npm" alt="npm version" />

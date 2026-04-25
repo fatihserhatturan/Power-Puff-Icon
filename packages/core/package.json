@@ -40,10 +40,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/fatihserhatturan/Beluga-Icon",
+    "url": "git+https://github.com/beluga-icon/Beluga-Icon.git",
     "directory": "packages/core"
   },
-  "homepage": "https://github.com/fatihserhatturan/Beluga-Icon#readme",
+  "homepage": "https://github.com/beluga-icon/Beluga-Icon#readme",
   "devDependencies": {
     "tsup": "^8.3.0",
     "typescript": "^6.0.2"

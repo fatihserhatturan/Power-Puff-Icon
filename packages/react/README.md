@@ -240,7 +240,7 @@ import { SearchIcon } from '@beluga-icon/react/icons/ui/Search'
 | buildings      | House, Office, Hospital, School                |
 | … and more     | math, chart, shapes, text, time, layout, users |
 
-[→ Browse all icons in the demo](https://github.com/fatihserhatturan/Beluga-Icon)
+[→ Browse all icons in the demo](https://github.com/beluga-icon/Beluga-Icon)
 
 ## License
 
